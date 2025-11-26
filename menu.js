@@ -114,12 +114,9 @@ const menuData = {
         { name: "Kapı Hattı", url: "hat-b.html" },
         
     ],
-   makineler: [
-        { name: "Kesme Makinası", url: "kesme-makinasi.html" },
-        { name: "Bükme Makinası", url: "bükme-makinasi.html" },
-        { name: "Kaynak Makinası", url: "kaynak-makinasi.html" },
-        { name: "Delme Makinası", url: "delme-makinasi.html" },
-        { name: "Taşlama Makinası", url: "taslama-makinasi.html" }
+   hucreler: [
+        { name: "Gazaltı-1 Hücresi", url: "gazalti-1-hucre.html" },
+       
         ]
    
 };
@@ -149,10 +146,10 @@ function createNavigationMenu() {
                         ).join('')}
                     </optgroup>
                     
-                    <!-- MAKİNALAR -->
-                    <optgroup label="MAKİNALAR">
-                        ${menuData.makineler.map(makina => 
-                            `<option value="${makina.url}">${makina.name}</option>`
+                    <!-- HÜCRELER -->
+                    <optgroup label="HÜCRELER">
+                        ${menuData.hucreler.map(hucre => 
+                            `<option value="${hucre.url}">${hucre.name}</option>`
                         ).join('')}
                     </optgroup>
                     
