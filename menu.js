@@ -64,7 +64,7 @@ text-align: center;
 color: #440ac2;
 font-style: italic;
 }
-.dropdown-selecet optgroup {
+.dropdown-select optgroup {
 font-weight: 600;
 color: #110230;
 font-size: 14px;
@@ -133,25 +133,25 @@ function createNavigationMenu() {
                 
                
                     <!-- PRESLER -->
-                    <optgroup label="PRESLER">
+                    
                         ${menuData.presler.map(pres => 
                             `<option value="${pres.url}">${pres.name}</option>`
                         ).join('')}
-                    </optgroup>
+                    
                     
                     <!-- HATLAR -->
-                    <optgroup label="HATLAR">
+                   
                         ${menuData.hatlar.map(hat => 
                             `<option value="${hat.url}">${hat.name}</option>`
                         ).join('')}
-                    </optgroup>
+                    
                     
                     <!-- HÜCRELER -->
-                    <optgroup label="HÜCRELER">
+                    
                         ${menuData.hucreler.map(hucre => 
                             `<option value="${hucre.url}">${hucre.name}</option>`
                         ).join('')}
-                    </optgroup>
+                    
                     
                   
             </select>
