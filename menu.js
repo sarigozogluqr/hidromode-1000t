@@ -106,7 +106,7 @@ text-align: center;
 const menuData = {
     presler: [
         { name: "1000T Pres", url: "index.html" },
-        { name: "2000T Pres", url: "pres-800t.html" },
+        { name: "2000T Pres", url: "hidromode-2000t.html" },
         
     ],
     hatlar: [
