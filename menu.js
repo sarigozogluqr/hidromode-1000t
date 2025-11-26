@@ -115,7 +115,7 @@ const menuData = {
         
     ],
    hucreler: [
-        { name: "Gazaltı-1 Hücresi", url: "gazalti-1-hucre.html" },
+        { name: "Gazaltı-1 Hücresi", url: "gazalti-1.html" },
        
         ]
    
