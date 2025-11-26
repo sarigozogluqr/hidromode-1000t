@@ -148,7 +148,7 @@ function createNavigationMenu() {
                     
                     <!-- HÜCRELER -->
                     <optgroup label="HÜCRELER">
-                        ${menuData.makineler.map(hucre => 
+                        ${menuData.hucreler.map(hucre => 
                             `<option value="${hucre.url}">${hucre.name}</option>`
                         ).join('')}
                     </optgroup>
