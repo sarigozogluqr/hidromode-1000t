@@ -111,7 +111,6 @@ const menuData = {
     ],
     
     hatlar: [
-        { name: "G1 Hattı", url: "hat-a.html" },
         { name: "Kapı Hattı", url: "hat-b.html" },        
     ],
     
