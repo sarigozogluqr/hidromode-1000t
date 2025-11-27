@@ -107,16 +107,16 @@ const menuData = {
     presler: [
         { name: "1000T Pres", url: "index.html" },
         { name: "2000T Pres", url: "hidromode-2000t.html" },
-        
+        {name: "SMG Pres", url: "smg-pres.html"}  
     ],
+    
     hatlar: [
         { name: "G1 Hattı", url: "hat-a.html" },
-        { name: "Kapı Hattı", url: "hat-b.html" },
-        
+        { name: "Kapı Hattı", url: "hat-b.html" },        
     ],
+    
    hucreler: [
-        { name: "Gazaltı-1 Hücresi", url: "gazalti-1.html" },
-       
+        { name: "Gazaltı-1 Hücresi", url: "gazalti-1.html" },   
         ]
    
 };
