@@ -107,7 +107,8 @@ const menuData = {
     presler: [
         { name: "1000T Pres", url: "index.html" },
         { name: "2000T Pres", url: "hidromode-2000t.html" },
-        {name: "SMG Pres", url: "smg-pres.html"}  
+        {name: "SMG Pres", url: "smg-pres.html"},
+        {name: "5000T Pres", url: "5000t-pres.html"}
     ],
     
     hatlar: [
