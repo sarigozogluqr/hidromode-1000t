@@ -102,9 +102,7 @@ const menuData = {
         {name: "Stenhoj", url: "stenhoj.html"}
     ],
     
-    hatlar: [
-        { name: "Kapı Hattı", url: "hat-b.html" },        
-    ],
+   
     
    hucreler: [
         { name: "Gazaltı-1-2-3 Hücresi", url: "gazalti-1-2-3.html" },   
@@ -129,11 +127,7 @@ function createNavigationMenu() {
                         ).join('')}
                     
                     
-                    <!-- HATLAR -->
-                   
-                        ${menuData.hatlar.map(hat => 
-                            `<option value="${hat.url}">${hat.name}</option>`
-                        ).join('')}
+                
                     
                     
                     <!-- HÜCRELER -->
