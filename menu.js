@@ -71,7 +71,6 @@ font-size: 14px;
 text-align: center;
 }
 
-/* Mobil uyumluluk */
 @media (max-width: 600px) {
     .main-nav {
         padding: 25px 15px;
@@ -91,16 +90,6 @@ text-align: center;
 }
 </style>
 `;
-
-
-
-
-
-
-
-
-
-
 
 
 const menuData = {
@@ -123,7 +112,6 @@ const menuData = {
    
 };
 
-// Dropdown menüyü oluşturan fonksiyon
 function createNavigationMenu() {
     return `
     <div class="main-nav">
@@ -162,7 +150,7 @@ function createNavigationMenu() {
     `;
 }
 
-// Menüyü sayfaya yükle
+
 function loadNavigationMenu() {
          document.head.insertAdjacentHTML('beforeend',menuStyles);
     const header = document.querySelector('.header');
@@ -171,7 +159,7 @@ function loadNavigationMenu() {
     }
 }
 
-// Sayfa yüklendiğinde menüyü yükle
+
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', loadNavigationMenu);
 } else {
