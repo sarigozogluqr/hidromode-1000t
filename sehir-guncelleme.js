@@ -3,7 +3,7 @@
 (function() {
     'use strict';
     
-    console.log('🔄 Şehir güncelleme yükleniyor...');
+    console.log('Şehir güncelleme yükleniyor...');
     
     // HER ŞEHİR VE SEÇENEK İÇİN İÇERİKLER
     const sehirIcerikleri = {
@@ -24,37 +24,37 @@
                 ]
             }
         },
-        konya: {
+        bursa: {
             "cnc-program": {
-                baslik: "KONYA - CNC Programları",
+                baslik: "BURSA - CNC Programları",
                 dosyalar: [
-                    { isim: "KONYA CNC Temel Kodlar", link: "https://drive.google.com/file/d/konya1=sharing" },
-                    { isim: "KONYA İleri CNC Programlama", link: "https://drive.google.com/file/d/konya2=sharing" }
+                    { isim: "BURSA CNC Temel Kodlar", link: "https://drive.google.com/file/d/konya1=sharing" },
+                    { isim: "BURSA İleri CNC Programlama", link: "https://drive.google.com/file/d/konya2=sharing" }
                 ]
             },
             "kalite-kontrol": {
-                baslik: "KONYA - Kalite Kontrol",
+                baslik: "BURSA - Kalite Kontrol",
                 dosyalar: [
-                    { isim: "KONYA Kalite Test Scriptleri", link: "https://drive.google.com/file/d/konya3=sharing" },
-                    { isim: "KONYA ISO Dokümanları", link: "https://drive.google.com/file/d/konya4=sharing" }
+                    { isim: "BURSA Kalite Test Scriptleri", link: "https://drive.google.com/file/d/konya3=sharing" },
+                    { isim: "BURSA ISO Dokümanları", link: "https://drive.google.com/file/d/konya4=sharing" }
                 ]
             }
         },
-        ankara: {
+        manisa: {
             "ofis-otomasyon": {
-                baslik: "ANKARA - Ofis Otomasyon",
+                baslik: "MANİSA - Ofis Otomasyon",
                 dosyalar: [
-                    { isim: "ANKARA Ofis Yazılımları", link: "https://drive.google.com/file/d/ankara1=sharing" },
-                    { isim: "ANKARA Yönetim Paneli", link: "https://drive.google.com/file/d/ankara2=sharing" }
+                    { isim: "MANİSA Ofis Yazılımları", link: "https://drive.google.com/file/d/ankara1=sharing" },
+                    { isim: "MANİSA Yönetim Paneli", link: "https://drive.google.com/file/d/ankara2=sharing" }
                 ]
             }
         },
-        istanbul: {
+        kocaeli: {
             "iot-sistem": {
-                baslik: "İSTANBUL - IoT Sistemleri",
+                baslik: "KOCAELİ - IoT Sistemleri",
                 dosyalar: [
-                    { isim: "İSTANBUL IoT Temel Kodlar", link: "https://drive.google.com/file/d/istanbul1=sharing" },
-                    { isim: "İSTANBUL Akıllı Sistemler", link: "https://drive.google.com/file/d/istanbul2=sharing" }
+                    { isim: "KOCAELİ IoT Temel Kodlar", link: "https://drive.google.com/file/d/istanbul1=sharing" },
+                    { isim: "KOCAELİ Akıllı Sistemler", link: "https://drive.google.com/file/d/istanbul2=sharing" }
                 ]
             }
         }
@@ -65,7 +65,7 @@
         try {
             const dropdownContainer = document.querySelector('.dropdown-menu-container');
             if (!dropdownContainer) {
-                console.error('❌ Dropdown container bulunamadı!');
+                console.error('Dropdown container bulunamadı!');
                 return false;
             }
             
@@ -77,11 +77,11 @@
             // Dropdown'dan sonra ekle
             dropdownContainer.parentNode.insertBefore(contentContainer, dropdownContainer.nextSibling);
             
-            console.log('✅ İçerik alanı oluşturuldu');
+            console.log('İçerik alanı oluşturuldu');
             return true;
             
         } catch (error) {
-            console.error('❌ İçerik alanı oluşturma hatası:', error);
+            console.error('İçerik alanı oluşturma hatası:', error);
             return false;
         }
     };
@@ -125,10 +125,10 @@
             html += '</div>';
             contentArea.innerHTML = html;
             
-            console.log(`📄 İçerik yüklendi: ${sehirId} - ${secenekDegeri}`);
+            console.log(`İçerik yüklendi: ${sehirId} - ${secenekDegeri}`);
             
         } catch (error) {
-            console.error('❌ İçerik yükleme hatası:', error);
+            console.error('İçerik yükleme hatası:', error);
         }
     };
     
@@ -136,9 +136,9 @@
     const getSehirAdi = (sehirId) => {
         const sehirler = {
             aksaray: 'AKSARAY',
-            konya: 'KONYA',
-            ankara: 'ANKARA',
-            istanbul: 'İSTANBUL'
+            bursa: 'BURSA',
+            manisa: 'MANİSA',
+            kocaeli: 'KOCAELİ'
         };
         return sehirler[sehirId] || sehirId.toUpperCase();
     };
@@ -174,7 +174,7 @@
         }
         sehirIcerikleri[sehirId][secenekDegeri] = icerik;
         
-        console.log(`✅ Yeni içerik eklendi: ${sehirId} - ${secenekDegeri}`);
+        console.log(`Yeni içerik eklendi: ${sehirId} - ${secenekDegeri}`);
     };
     
     // BAŞLATMA
@@ -201,7 +201,7 @@
                 icerikYukle: loadContent
             };
             
-            console.log('✅ Şehir güncelleme sistemi hazır');
+            console.log('Şehir güncelleme sistemi hazır');
         }
     };
     
