@@ -5,17 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>5000T-PRES</title>
 
-<script src="menu.js"></script>
-
-
-
-
-
-  <script src="sehir-butonlari.js"></script>
-
-
-
-    
+<script src="menu.js"></script>    
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -107,16 +97,7 @@
             background: #f8f9fa;
             color: #7f8c8d;
         }
-    </style>
-
-
-
-
-
-
-
-
-    
+    </style>    
 </head>
 <body>
     <div class="container">
@@ -165,61 +146,6 @@
             <p>AKSARAY</p>
             <p>ROBOT-OTOMASYON BİRİMİ</p>
             <p>Son Güncelleme: 1 Aralık 2025</p>  
-    </div>
-
-
-
-
-
-
-
-
-
-        
-<script>
-// Buton tıklandığında dropdown'ı güncelle
-document.addEventListener('cityButtonClicked', function(event) {
-    const cityId = event.detail.cityId;
-    
-    // Eğer dropdown manager varsa, şehri ona bildir
-    if (window.DropdownManager) {
-        DropdownManager.setCurrentCity(cityId);
-    }
-    
-    // İçeriği şehre göre güncelle
-    updateContentForCity(cityId);
-});
-
-// İçerik güncelleme fonksiyonu (kendi içeriğinize göre düzenleyin)
-function updateContentForCity(cityId) {
-    // Bu kısmı kendi içeriğinize göre düzenleyin
-    console.log('Şehir değişti:', cityId);
-    
-    // Örnek: Buton metinlerini değiştir
-    const buttons = document.querySelectorAll('.doc-button');
-    if (buttons.length >= 2) {
-        buttons[0].textContent = cityId.toUpperCase() + ' Dosya-1';
-        buttons[1].textContent = cityId.toUpperCase() + ' Dosya-2';
-        
-        // Linkleri de güncelle
-        buttons[0].href = `https://drive.google.com/file/d/${cityId}1=sharing`;
-        buttons[1].href = `https://drive.google.com/file/d/${cityId}2=sharing`;
-    }
-}
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+    </div>        
 </body>
 </html>
