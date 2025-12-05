@@ -114,6 +114,7 @@
             bursa: 'BURSA',
             manisa: 'MANİSA',
             kocaeli: 'KOCAELİ'
+            
         };
         return sehirler[sehirId] || sehirId.toUpperCase();
     };
