@@ -60,7 +60,7 @@
                     box-shadow: 0 4px 10px rgba(35, 5, 100, 0.3);
                 }
                 .sehir-adi-header {
-                    color: #ffcc00;
+                    color: white;
                     font-weight: 700;
                 }
                 
