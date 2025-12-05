@@ -3,7 +3,7 @@
 (function() {
     'use strict';
     
-    console.log('🔄 Şehir butonları yükleniyor...');
+    console.log('Şehir butonları yükleniyor...');
     
     // AKTİF ŞEHİR TAKİBİ
     let aktifSehirId = 'aksaray';
@@ -13,7 +13,7 @@
         try {
             const header = document.querySelector('.header');
             if (!header) {
-                console.error('❌ Header bulunamadı!');
+                console.error('Header bulunamadı!');
                 return false;
             }
             
@@ -23,9 +23,9 @@
             buttonContainer.innerHTML = `
                 <div class="sehir-butonlari-wrapper">
                     <button class="sehir-btn active" data-sehir="aksaray">AKSARAY</button>
-                    <button class="sehir-btn" data-sehir="konya">KONYA</button>
-                    <button class="sehir-btn" data-sehir="ankara">ANKARA</button>
-                    <button class="sehir-btn" data-sehir="istanbul">İSTANBUL</button>
+                    <button class="sehir-btn" data-sehir="bursa">BURSA</button>
+                    <button class="sehir-btn" data-sehir="manisa">MANİSA</button>
+                    <button class="sehir-btn" data-sehir="kocaeli">KOCAELİ</button>
                 </div>
             `;
             
@@ -80,7 +80,7 @@
                     document.dispatchEvent(event);
                 }
                 
-                console.log(`📍 Şehir değiştirildi: ${sehirAdi} (ID: ${sehirId})`);
+                console.log(`Şehir değiştirildi: ${sehirAdi} (ID: ${sehirId})`);
             });
         });
     };
@@ -98,11 +98,11 @@
                     const currentHTML = headerH1.innerHTML;
                     
                     // "SARIGÖZOĞLU AKSARAY" formatında mı kontrol et
-                    if (currentHTML.includes('AKSARAY') || currentHTML.includes('KONYA') || 
-                        currentHTML.includes('ANKARA') || currentHTML.includes('İSTANBUL')) {
+                    if (currentHTML.includes('AKSARAY') || currentHTML.includes('BURSA') || 
+                        currentHTML.includes('MANİSA') || currentHTML.includes('KOCAELİ')) {
                         // Sadece şehir adını değiştir
                         headerH1.innerHTML = currentHTML.replace(
-                            /(AKSARAY|KONYA|ANKARA|İSTANBUL)/g, 
+                            /(AKSARAY|BURSA|MANİSA|KOCAELİ)/g, 
                             '<span id="header-sehir-adi" class="sehir-adi-header">' + sehirAdi + '</span>'
                         );
                     } else {
@@ -117,7 +117,7 @@
             }
             
         } catch (error) {
-            console.error('❌ Header güncelleme hatası:', error);
+            console.error('Header güncelleme hatası:', error);
         }
     };
     
@@ -126,14 +126,14 @@
         try {
             const buttonsWrapper = document.querySelector('.sehir-butonlari-wrapper');
             if (!buttonsWrapper) {
-                console.error('❌ Buton wrapper bulunamadı!');
+                console.error('Buton wrapper bulunamadı!');
                 return false;
             }
             
             // Buton zaten var mı kontrol et
             const existingButton = buttonsWrapper.querySelector(`[data-sehir="${sehirId}"]`);
             if (existingButton) {
-                console.warn(`⚠️ ${sehirAdi} butonu zaten var`);
+                console.warn(`${sehirAdi} butonu zaten var`);
                 return false;
             }
             
@@ -167,38 +167,20 @@
                 });
                 document.dispatchEvent(event);
                 
-                console.log(`📍 Yeni şehir seçildi: ${sehirAdi}`);
+                console.log(`Yeni şehir seçildi: ${sehirAdi}`);
             });
             
             buttonsWrapper.appendChild(newButton);
-            console.log(`✅ Yeni şehir eklendi: ${sehirAdi}`);
+            console.log(`Yeni şehir eklendi: ${sehirAdi}`);
             return true;
             
         } catch (error) {
-            console.error('❌ Yeni şehir ekleme hatası:', error);
+            console.error('Yeni şehir ekleme hatası:', error);
             return false;
         }
     };
     
-    // İZMİR BUTONUNU SABİT AKTİF YAPMA (DÜZELTİLDİ)
-    const fixIzmirButton = () => {
-        try {
-            const izmirButton = document.querySelector('[data-sehir="izmir"]');
-            if (izmirButton && izmirButton.classList.contains('active')) {
-                // İzmir aktifse ve aksaray aktif değilse, aksaray'ı aktif yap
-                const aksarayButton = document.querySelector('[data-sehir="aksaray"]');
-                if (aksarayButton && aktifSehirId !== 'aksaray') {
-                    izmirButton.classList.remove('active');
-                    aksarayButton.classList.add('active');
-                    aktifSehirId = 'aksaray';
-                    updateHeaderSehir('AKSARAY');
-                    console.log('✅ İzmir butonu düzeltildi, Aksaray aktif yapıldı');
-                }
-            }
-        } catch (error) {
-            console.error('❌ İzmir butonu düzeltme hatası:', error);
-        }
-    };
+   
     
     // BAŞLATMA
     const init = () => {
@@ -209,8 +191,7 @@
             // İlk şehir adını header'a yerleştir
             updateHeaderSehir('AKSARAY');
             
-            // İzmir butonu kontrolü
-            setTimeout(fixIzmirButton, 1000);
+          
             
             // Global fonksiyonları ekle
             window.SehirButonlari = {
@@ -229,7 +210,7 @@
                 }
             };
             
-            console.log('✅ Şehir butonları sistemi hazır');
+            console.log('Şehir butonları sistemi hazır');
         }
     };
     
