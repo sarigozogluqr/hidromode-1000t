@@ -25,29 +25,21 @@
             const style = document.createElement('style');
             style.textContent = `
                 /* ŞEHİR BUTONLARI */
-                .sehir-butonlari-container {
-                    background: #f0f0f0;
-                    padding: 15px;
-                    border-bottom: 2px solid #ddd;
-                    text-align: center;
-                }
+                
                 .sehir-butonlari-wrapper {
                     display: flex;
-                    justify-content: center;
-                    gap: 15px;
-                    flex-wrap: wrap;
+                    flex-wrap: nowrap;
+                    overflow-x: auto;
+                    justify-content: flex-start;
+                    gap: 8px;
+                    paddin-bottom: 5px;
+                    -webkit-overflow-scrolling: touch;
                 }
                 .sehir-btn {
-                    padding: 12px 25px;
-                    background: white;
-                    border: 2px solid #230564;
-                    border-radius: 8px;
-                    color: #230564;
-                    font-weight: bold;
-                    cursor: pointer;
-                    font-size: 16px;
-                    font-family: inherit;
-                    transition: all 0.3s;
+                flex: 0 0 auto;
+                    padding: 10px 15px;
+                    min-width: 100px;
+                    white-space: nowrap;
                 }
                 .sehir-btn:hover {
                     background: #230564;
