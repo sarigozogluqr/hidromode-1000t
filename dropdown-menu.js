@@ -8,13 +8,13 @@
     // HER ŞEHİR İÇİN FARKLI SEÇENEKLER
     const sehirSecenekleri = {
         aksaray: [
-            { metin: "1000T Pres", deger:"index.html" },
-            { metin: "2000T Pres", deger: "hidromode-2000t.html" },
-            { metin: "5000T Pres", deger: "5000t-pres.html" },
-            { metin: "6000T Pres", deger: "6000t-pres.html" },
-            { metin: "SMG Pres", deger: "smg-pres.html"},
-            { metin: "Stenhoj", deger: "sthenhoj.html"},
-            { metin: "Gazaltı-1-2-3", deger:"gazalti-1-2-3.html"}
+            { deger: "1000t-pres", metin: "1000T Pres", url: "index.html" },
+            { deger: "2000t-pres", metin: "2000T Pres", url: "hidromode-2000t.html" },
+            { deger: "5000t-pres", metin: "5000T Pres", url: "5000t-pres.html" },
+            { deger: "6000t-pres", metin: "6000T Pres", url: "6000t-pres.html" },
+            { deger: "smg-pres", metin: "SMG Pres", url: "smg-pres.html"},
+            { deger: "stenhoj", metin: "Stenhoj", url: "stenhoj.html"},
+            { deger: "gazalti-1-2-3", metin:"Gazaltı-1-2-3", url: "gazalti-1-2-3.html"    }
         ],
         bursa: [
             { deger: "cnc-program", metin: "CNC Programları" },
@@ -75,8 +75,10 @@
             const dropdown = document.getElementById('sehir-dropdown');
             const label = document.getElementById('dropdown-label');
             
-            if (!dropdown || !label) return;
-            
+            if (!dropdown || !label) {
+                console.error('Dropdown veya label bulunamadı');
+                return;
+            }
             // Dropdown'ı temizle
             dropdown.innerHTML = '<option value="">Seçiniz...</option>';
             
@@ -86,8 +88,11 @@
             // Seçenekleri ekle
             secenekler.forEach(secenek => {
                 const option = document.createElement('option');
-                option.value = secenek.metin;
-                option.textContent = secenek.url;
+                option.value = secenek.url;
+                option.textContent = secenek.metin;
+                option.setAttribute('data-sehir', sehirId);
+                option.setAttribute('data-deger', secenek.deger);
+                option.setAttribute('data-url', secenek.url);
                 dropdown.appendChild(option);
             });
             
@@ -117,8 +122,10 @@
     const setupEventListeners = () => {
         // Şehir değiştiğinde dropdown'ı güncelle
         document.addEventListener('sehirDegisti', function(event) {
+            console.log('Şehir değişti: ${event.detail.sehirAdi}');
             updateDropdownOptions(event.detail.sehirId);
         });
+        
         
         // Dropdown değiştiğinde
         const dropdown = document.getElementById('sehir-dropdown');
@@ -135,9 +142,10 @@
                     // Event tetikle
                     const event = new CustomEvent('dropdownSecildi', {
                         detail: {
-                            metin: secilenDeger,
-                            url: secilenMetin,
-                            sehirId: sehirId
+                                deger: deger,
+                                metin: metin,
+                                url: url,
+                                sehirId: sehirId
                         }
                     });
                     document.dispatchEvent(event);
