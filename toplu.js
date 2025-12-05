@@ -60,8 +60,15 @@
                     box-shadow: 0 4px 10px rgba(35, 5, 100, 0.3);
                 }
                 .sehir-adi-header {
-                    color: white;
-                    font-weight: 700;
+                   color: white !important; /* SARIDAN BEYAZA DEĞİŞTİ */
+                font-weight: 700;
+                /* Logo değil, sadece metin */
+                display: inline;
+                background: none;
+                border: none;
+                padding: 0;
+                margin: 0;
+                text-shadow: 0 1px 2px rgba(0,0,0,0.3);
                 }
                 
                 /* DROPDOWN MENÜ */
