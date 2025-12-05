@@ -86,8 +86,8 @@
             // Seçenekleri ekle
             secenekler.forEach(secenek => {
                 const option = document.createElement('option');
-                option.value = secenek.deger;
-                option.textContent = secenek.metin;
+                option.value = secenek.name;
+                option.textContent = secenek.url;
                 dropdown.appendChild(option);
             });
             
@@ -135,8 +135,8 @@
                     // Event tetikle
                     const event = new CustomEvent('dropdownSecildi', {
                         detail: {
-                            deger: secilenDeger,
-                            metin: secilenMetin,
+                            name: secilenDeger,
+                            url: secilenMetin,
                             sehirId: sehirId
                         }
                     });
