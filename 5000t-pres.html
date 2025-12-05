@@ -167,34 +167,9 @@
         document.title = '✅ ' + document.title; // Başlığa işaret koy
     });
     
-    // Yeni şehir eklemek için (örnek)
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-            if (window.SehirButonlari) {
-                // Örnek: İzmir şehrini ekle
-                window.SehirButonlari.yeniSehirEkle('izmir', 'İZMİR');
-                
-                // İzmir için dropdown seçenekleri
-                if (window.DropdownMenu) {
-                    window.DropdownMenu.yeniSecenekEkle('izmir', [
-                        { deger: "liman", metin: "Liman Otomasyon" },
-                        { deger: "depo", metin: "Depo Yönetimi" }
-                    ]);
-                }
-                
-                // İzmir için içerik
-                if (window.SehirGuncelleme) {
-                    window.SehirGuncelleme.yeniIcerikEkle('izmir', 'liman', {
-                        baslik: "İZMİR - Liman Otomasyon",
-                        dosyalar: [
-                            { isim: "İZMİR Konteyner Takip", link: "#" },
-                            { isim: "İZMİR Yük İşlemleri", link: "#" }
-                        ]
-                    });
-                }
-            }
-        }, 2000);
-    });
+    
+               ;
+
     </script>
 
 
