@@ -8,13 +8,13 @@
     // HER ŞEHİR İÇİN FARKLI SEÇENEKLER
     const sehirSecenekleri = {
         aksaray: [
-            { name: "1000T Pres", url:"index.html" },
-            { name: "2000T Pres", url: "hidromode-2000t.html" },
-            { name: "5000T Pres", url: "5000t-pres.html" },
-            { name: "6000T Pres", url: "6000t-pres.html" },
-            { name: "SMG Pres", url: "smg-pres.html"},
-            { name: "Stenhoj", url: "sthenhoj.html"},
-            { name: "Gazaltı-1-2-3", url:"gazalti-1-2-3.html"}
+            { metin: "1000T Pres", deger:"index.html" },
+            { metin: "2000T Pres", deger: "hidromode-2000t.html" },
+            { metin: "5000T Pres", deger: "5000t-pres.html" },
+            { metin: "6000T Pres", deger: "6000t-pres.html" },
+            { metin: "SMG Pres", deger: "smg-pres.html"},
+            { metin: "Stenhoj", deger: "sthenhoj.html"},
+            { metin: "Gazaltı-1-2-3", deger:"gazalti-1-2-3.html"}
         ],
         bursa: [
             { deger: "cnc-program", metin: "CNC Programları" },
@@ -86,7 +86,7 @@
             // Seçenekleri ekle
             secenekler.forEach(secenek => {
                 const option = document.createElement('option');
-                option.value = secenek.name;
+                option.value = secenek.metin;
                 option.textContent = secenek.url;
                 dropdown.appendChild(option);
             });
@@ -135,7 +135,7 @@
                     // Event tetikle
                     const event = new CustomEvent('dropdownSecildi', {
                         detail: {
-                            name: secilenDeger,
+                            metin: secilenDeger,
                             url: secilenMetin,
                             sehirId: sehirId
                         }
