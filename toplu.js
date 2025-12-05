@@ -4,7 +4,7 @@
 (function() {
     'use strict';
     
-    console.log('🔧 Şehir Sistemi başlatılıyor...');
+    console.log('Şehir Sistemi başlatılıyor...');
     
     // DOSYA YOLLARI
     const scripts = {
@@ -15,7 +15,7 @@
     
     // HATA YÖNETİMİ
     const handleError = (error, component) => {
-        console.error(`❌ ${component} hatası:`, error);
+        console.error(`${component} hatası:`, error);
         return false;
     };
     
@@ -139,11 +139,11 @@
             const script = document.createElement('script');
             script.src = src;
             script.onload = () => {
-                console.log(`✅ ${src} yüklendi`);
+                console.log(`${src} yüklendi`);
                 resolve(true);
             };
             script.onerror = () => {
-                console.error(`❌ ${src} yüklenemedi`);
+                console.error(`${src} yüklenemedi`);
                 reject(new Error(`${src} yüklenemedi`));
             };
             document.head.appendChild(script);
@@ -173,7 +173,7 @@
                 container.prepend(header);
             }
             
-            console.log('✅ HTML yapısı kontrol edildi');
+            console.log('HTML yapısı kontrol edildi');
             return true;
         } catch (error) {
             return handleError(error, 'HTML yapısı kontrolü');
@@ -190,7 +190,7 @@
             checkHTMLStructure();
             
             // 3. Script'leri sırayla yükle
-            console.log('📦 Scriptler yükleniyor...');
+            console.log('Scriptler yükleniyor...');
             
             // Önce şehir butonları
             await loadScript(scripts.buttons);
@@ -207,18 +207,18 @@
             // En son güncelleyici
             await loadScript(scripts.updater);
             
-            console.log('✅ Tüm scriptler yüklendi');
+            console.log('Tüm scriptler yüklendi');
             return true;
             
         } catch (error) {
-            console.error('❌ Script yükleme hatası:', error);
+            console.error('Script yükleme hatası:', error);
             return false;
         }
     };
     
     // SİSTEMİ BAŞLAT
     const startSystem = async () => {
-        console.log('🚀 Sistem başlatılıyor...');
+        console.log('Sistem başlatılıyor...');
         
         try {
             const loaded = await loadScriptsInOrder();
@@ -228,14 +228,14 @@
                 setTimeout(() => {
                     const event = new CustomEvent('sehirSistemiHazir');
                     document.dispatchEvent(event);
-                    console.log('🎉 Şehir Sistemi hazır!');
+                    console.log('Şehir Sistemi hazır!');
                 }, 500);
             } else {
-                console.error('❌ Sistem tam olarak yüklenemedi');
+                console.error('Sistem tam olarak yüklenemedi');
             }
             
         } catch (error) {
-            console.error('❌ Sistem başlatma hatası:', error);
+            console.error('Sistem başlatma hatası:', error);
         }
     };
     
