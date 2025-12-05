@@ -1,144 +1,224 @@
-// city-content-updater.js
-const CityContentUpdater = (function() {
-    const cityContentData = {
+// sehir-guncelleme.js - İçerik güncelleme sistemi
+
+(function() {
+    'use strict';
+    
+    console.log('🔄 Şehir güncelleme yükleniyor...');
+    
+    // HER ŞEHİR VE SEÇENEK İÇİN İÇERİKLER
+    const sehirIcerikleri = {
         aksaray: {
-            "temel-kodlar": {
-                title: "AKSARAY - Temel Kodlar",
-                files: [
-                    { name: "Temel Fonksiyonlar", link: "aksaray-temel.zip" },
-                    { name: "Başlangıç Scriptleri", link: "aksaray-baslangic.pdf" }
+            "temel-kod": {
+                baslik: "AKSARAY - Temel Kodlar",
+                dosyalar: [
+                    { isim: "AKSARAY Temel Fonksiyonlar", link: "https://drive.google.com/file/d/aksaray1=sharing" },
+                    { isim: "AKSARAY Başlangıç Scriptleri", link: "https://drive.google.com/file/d/aksaray2=sharing" },
+                    { isim: "AKSARAY Veritabanı Bağlantısı", link: "https://drive.google.com/file/d/aksaray3=sharing" }
                 ]
             },
             "fabrika-otomasyon": {
-                title: "AKSARAY - Fabrika Otomasyon",
-                files: [
-                    { name: "Üretim Hattı Kodları", link: "aksaray-uretim.zip" },
-                    { name: "Konveyör Sistemi", link: "aksaray-konveyor.pdf" }
+                baslik: "AKSARAY - Fabrika Otomasyon",
+                dosyalar: [
+                    { isim: "AKSARAY Üretim Hattı Kodları", link: "https://drive.google.com/file/d/aksaray4=sharing" },
+                    { isim: "AKSARAY Konveyör Sistemi", link: "https://drive.google.com/file/d/aksaray5=sharing" }
                 ]
             }
         },
         konya: {
-            "cnc-programlar": {
-                title: "KONYA - CNC Programları",
-                files: [
-                    { name: "CNC Temel Kodlar", link: "konya-cnc-temel.zip" },
-                    { name: "İleri CNC Programlama", link: "konya-cnc-ileri.pdf" }
+            "cnc-program": {
+                baslik: "KONYA - CNC Programları",
+                dosyalar: [
+                    { isim: "KONYA CNC Temel Kodlar", link: "https://drive.google.com/file/d/konya1=sharing" },
+                    { isim: "KONYA İleri CNC Programlama", link: "https://drive.google.com/file/d/konya2=sharing" }
+                ]
+            },
+            "kalite-kontrol": {
+                baslik: "KONYA - Kalite Kontrol",
+                dosyalar: [
+                    { isim: "KONYA Kalite Test Scriptleri", link: "https://drive.google.com/file/d/konya3=sharing" },
+                    { isim: "KONYA ISO Dokümanları", link: "https://drive.google.com/file/d/konya4=sharing" }
+                ]
+            }
+        },
+        ankara: {
+            "ofis-otomasyon": {
+                baslik: "ANKARA - Ofis Otomasyon",
+                dosyalar: [
+                    { isim: "ANKARA Ofis Yazılımları", link: "https://drive.google.com/file/d/ankara1=sharing" },
+                    { isim: "ANKARA Yönetim Paneli", link: "https://drive.google.com/file/d/ankara2=sharing" }
+                ]
+            }
+        },
+        istanbul: {
+            "iot-sistem": {
+                baslik: "İSTANBUL - IoT Sistemleri",
+                dosyalar: [
+                    { isim: "İSTANBUL IoT Temel Kodlar", link: "https://drive.google.com/file/d/istanbul1=sharing" },
+                    { isim: "İSTANBUL Akıllı Sistemler", link: "https://drive.google.com/file/d/istanbul2=sharing" }
                 ]
             }
         }
-        // Diğer şehirler...
     };
-
-    const addStyles = () => {
-        if (document.querySelector('style[data-content-updater]')) return;
-        
-        const style = document.createElement('style');
-        style.setAttribute('data-content-updater', 'true');
-        style.textContent = `
-            .dynamic-content-container {
-                padding: 30px;
+    
+    // İÇERİK ALANINI OLUŞTUR
+    const createContentArea = () => {
+        try {
+            const dropdownContainer = document.querySelector('.dropdown-menu-container');
+            if (!dropdownContainer) {
+                console.error('❌ Dropdown container bulunamadı!');
+                return false;
             }
-            .city-button-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 15px;
-                margin-top: 20px;
-            }
-            .city-doc-button {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                background: #230564;
-                color: white;
-                text-decoration: none;
-                padding: 16px 20px;
-                border-radius: 10px;
-                font-weight: 500;
-                transition: all 0.3s ease;
-                box-shadow: 0 4px 15px rgba(25, 25, 112, 0.3);
-            }
-            .city-doc-button:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(25, 25, 112, 0.4);
-                background: #1a044a;
-            }
-            .city-doc-icon {
-                font-size: 20px;
-            }
-        `;
-        document.head.appendChild(style);
-    };
-
-    const loadContent = (cityId, optionValue) => {
-        const cityData = cityContentData[cityId];
-        if (!cityData) {
-            console.warn(`Şehir verisi bulunamadı: ${cityId}`);
-            return;
-        }
-        
-        const content = cityData[optionValue];
-        if (!content) {
-            console.warn(`İçerik bulunamadı: ${cityId} - ${optionValue}`);
-            return;
-        }
-        
-        let container = document.getElementById('dynamic-content-container');
-        if (!container) {
-            container = document.createElement('div');
-            container.id = 'dynamic-content-container';
-            container.className = 'dynamic-content-container';
             
-            const dropdown = document.querySelector('.dropdown-manager-container');
-            if (dropdown) {
-                dropdown.parentNode.insertBefore(container, dropdown.nextSibling);
-            }
+            // İçerik container'ı oluştur
+            const contentContainer = document.createElement('div');
+            contentContainer.className = 'sehir-icerik-container';
+            contentContainer.id = 'sehir-icerik-alani';
+            
+            // Dropdown'dan sonra ekle
+            dropdownContainer.parentNode.insertBefore(contentContainer, dropdownContainer.nextSibling);
+            
+            console.log('✅ İçerik alanı oluşturuldu');
+            return true;
+            
+        } catch (error) {
+            console.error('❌ İçerik alanı oluşturma hatası:', error);
+            return false;
         }
-        
-        const html = `
-            <div class="doc-section">
-                <h2 class="section-title">${content.title}</h2>
-                <div class="city-button-grid">
-                    ${content.files.map(file => `
-                        <a href="${file.link}" class="city-doc-button" target="_blank">
-                            <span>${file.name}</span>
-                            <span class="city-doc-icon">📁</span>
-                        </a>
-                    `).join('')}
-                </div>
-            </div>
-        `;
-        
-        container.innerHTML = html;
     };
-
+    
+    // İÇERİK YÜKLE
+    const loadContent = (sehirId, secenekDegeri) => {
+        try {
+            const contentArea = document.getElementById('sehir-icerik-alani');
+            if (!contentArea) return;
+            
+            const sehirIcerik = sehirIcerikleri[sehirId];
+            if (!sehirIcerik || !sehirIcerik[secenekDegeri]) {
+                // İçerik yoksa mesaj göster
+                contentArea.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #666;">
+                        <h3>${getSehirAdi(sehirId)}</h3>
+                        <p>"${secenekDegeri}" için içerik hazırlanıyor...</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const icerik = sehirIcerik[secenekDegeri];
+            
+            // HTML oluştur
+            let html = `
+                <h2 style="text-align: center; color: #230564; margin-bottom: 30px; padding-bottom: 10px; border-bottom: 3px solid #230564;">
+                    ${icerik.baslik}
+                </h2>
+                <div class="sehir-icerik-grid">
+            `;
+            
+            icerik.dosyalar.forEach(dosya => {
+                html += `
+                    <a href="${dosya.link}" class="sehir-dosya-btn" target="_blank">
+                        ${dosya.isim}
+                    </a>
+                `;
+            });
+            
+            html += '</div>';
+            contentArea.innerHTML = html;
+            
+            console.log(`📄 İçerik yüklendi: ${sehirId} - ${secenekDegeri}`);
+            
+        } catch (error) {
+            console.error('❌ İçerik yükleme hatası:', error);
+        }
+    };
+    
+    // ŞEHİR ADINI AL
+    const getSehirAdi = (sehirId) => {
+        const sehirler = {
+            aksaray: 'AKSARAY',
+            konya: 'KONYA',
+            ankara: 'ANKARA',
+            istanbul: 'İSTANBUL'
+        };
+        return sehirler[sehirId] || sehirId.toUpperCase();
+    };
+    
+    // EVENT LISTENER'LARI KUR
+    const setupEventListeners = () => {
+        // Şehir değiştiğinde
+        document.addEventListener('sehirDegisti', function(event) {
+            const sehirId = event.detail.sehirId;
+            
+            // Dropdown'daki ilk seçeneği yükle
+            setTimeout(() => {
+                const dropdown = document.getElementById('sehir-dropdown');
+                if (dropdown && dropdown.options.length > 1) {
+                    dropdown.selectedIndex = 1; // İlk içerik seçeneği
+                    loadContent(sehirId, dropdown.value);
+                }
+            }, 200);
+        });
+        
+        // Dropdown seçeneği değiştiğinde
+        document.addEventListener('dropdownSecildi', function(event) {
+            if (event.detail.deger) {
+                loadContent(event.detail.sehirId, event.detail.deger);
+            }
+        });
+    };
+    
+    // YENİ İÇERİK EKLE
+    const addSehirIcerik = (sehirId, secenekDegeri, icerik) => {
+        if (!sehirIcerikleri[sehirId]) {
+            sehirIcerikleri[sehirId] = {};
+        }
+        sehirIcerikleri[sehirId][secenekDegeri] = icerik;
+        
+        console.log(`✅ Yeni içerik eklendi: ${sehirId} - ${secenekDegeri}`);
+    };
+    
+    // BAŞLATMA
     const init = () => {
-        addStyles();
+        // İçerik alanını oluştur
+        const created = createContentArea();
         
-        document.addEventListener('cityButtonClicked', function(event) {
-            const cityId = event.detail.cityId;
-            const dropdown = document.getElementById('city-dropdown');
-            if (dropdown && dropdown.options.length > 1) {
-                dropdown.selectedIndex = 1;
-                loadContent(cityId, dropdown.value);
-            }
-        });
-        
-        document.addEventListener('dropdownOptionSelected', function(event) {
-            if (event.detail.value) {
-                loadContent(event.detail.cityId, event.detail.value);
-            }
-        });
-        
-        console.log('CityContentUpdater başlatıldı');
-    };
-
-    return {
-        init,
-        addCityContent: function(cityId, optionData) {
-            if (!cityContentData[cityId]) {
-                cityContentData[cityId] = {};
-            }
-            Object.assign(cityContentData[cityId], optionData);
+        if (created) {
+            // Event listener'ları kur
+            setupEventListeners();
+            
+            // İlk içeriği yükle
+            setTimeout(() => {
+                const dropdown = document.getElementById('sehir-dropdown');
+                if (dropdown && dropdown.options.length > 1) {
+                    dropdown.selectedIndex = 1;
+                    loadContent('aksaray', dropdown.value);
+                }
+            }, 500);
+            
+            // Global fonksiyonları ekle
+            window.SehirGuncelleme = {
+                yeniIcerikEkle: addSehirIcerik,
+                icerikYukle: loadContent
+            };
+            
+            console.log('✅ Şehir güncelleme sistemi hazır');
         }
     };
+    
+    // DİĞER SCRIPT'LERİ BEKLE
+    const waitForDropdown = () => {
+        if (document.querySelector('.dropdown-menu-container')) {
+            init();
+        } else {
+            setTimeout(waitForDropdown, 100);
+        }
+    };
+    
+    // BAŞLAT
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', waitForDropdown);
+    } else {
+        waitForDropdown();
+    }
+    
 })();
