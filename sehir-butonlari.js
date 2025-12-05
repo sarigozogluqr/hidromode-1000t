@@ -1,9 +1,12 @@
-// sehir-butonlari.js - Şehir butonları sistemi
+// sehir-butonlari.js - Şehir butonları sistemi (GÜNCELLENDİ)
 
 (function() {
     'use strict';
     
     console.log('🔄 Şehir butonları yükleniyor...');
+    
+    // AKTİF ŞEHİR TAKİBİ
+    let aktifSehirId = 'aksaray';
     
     // BUTONLARI OLUŞTUR
     const createButtons = () => {
@@ -41,7 +44,7 @@
         }
     };
     
-    // BUTON EVENT'LERİ
+    // BUTON EVENT'LERİ (DÜZELTİLDİ)
     const setupButtonEvents = () => {
         const buttons = document.querySelectorAll('.sehir-btn');
         
@@ -50,44 +53,66 @@
                 const sehirAdi = this.textContent;
                 const sehirId = this.getAttribute('data-sehir');
                 
+                // ÖNCEKİ AKTİF BUTONU KONTROL ET
+                const oncekiAktif = document.querySelector('.sehir-btn.active');
+                
                 // Tüm butonlardan active class'ını kaldır
                 buttons.forEach(btn => btn.classList.remove('active'));
                 
                 // Tıklanan butona active class'ını ekle
                 this.classList.add('active');
                 
-                // Header'daki şehir adını güncelle
+                // Aktif şehri güncelle
+                aktifSehirId = sehirId;
+                
+                // Header'daki sadece şehir adını güncelle
                 updateHeaderSehir(sehirAdi);
                 
-                // Event tetikle
-                const event = new CustomEvent('sehirDegisti', {
-                    detail: {
-                        sehirId: sehirId,
-                        sehirAdi: sehirAdi
-                    }
-                });
-                document.dispatchEvent(event);
+                // Event tetikle (sadece şehir gerçekten değiştiyse)
+                if (!oncekiAktif || oncekiAktif.getAttribute('data-sehir') !== sehirId) {
+                    const event = new CustomEvent('sehirDegisti', {
+                        detail: {
+                            sehirId: sehirId,
+                            sehirAdi: sehirAdi,
+                            oncekiSehirId: oncekiAktif ? oncekiAktif.getAttribute('data-sehir') : null
+                        }
+                    });
+                    document.dispatchEvent(event);
+                }
                 
-                console.log(`📍 Şehir değiştirildi: ${sehirAdi}`);
+                console.log(`📍 Şehir değiştirildi: ${sehirAdi} (ID: ${sehirId})`);
             });
         });
     };
     
-    // HEADER'DAKİ ŞEHİR ADINI GÜNCELLE
+    // HEADER'DAKİ SADECE ŞEHİR ADINI GÜNCELLE (DÜZELTİLDİ)
     const updateHeaderSehir = (sehirAdi) => {
         try {
             let sehirSpan = document.getElementById('header-sehir-adi');
             
             if (!sehirSpan) {
-                // Span yoksa oluştur
+                // Span yoksa oluştur, LOGOYU DEĞİŞTİRME!
                 const headerH1 = document.querySelector('.header h1');
                 if (headerH1) {
-                    headerH1.innerHTML = 'SARIGÖZOĞLU <span id="header-sehir-adi" class="sehir-adi-header">' + sehirAdi + '</span>';
+                    // Sadece şehir adını değiştir, logo sabit kalacak
+                    const currentHTML = headerH1.innerHTML;
+                    
+                    // "SARIGÖZOĞLU AKSARAY" formatında mı kontrol et
+                    if (currentHTML.includes('AKSARAY') || currentHTML.includes('KONYA') || 
+                        currentHTML.includes('ANKARA') || currentHTML.includes('İSTANBUL')) {
+                        // Sadece şehir adını değiştir
+                        headerH1.innerHTML = currentHTML.replace(
+                            /(AKSARAY|KONYA|ANKARA|İSTANBUL)/g, 
+                            '<span id="header-sehir-adi" class="sehir-adi-header">' + sehirAdi + '</span>'
+                        );
+                    } else {
+                        // İlk defa ekleniyorsa
+                        headerH1.innerHTML = 'SARIGÖZOĞLU <span id="header-sehir-adi" class="sehir-adi-header">' + sehirAdi + '</span>';
+                    }
                     sehirSpan = document.getElementById('header-sehir-adi');
                 }
-            }
-            
-            if (sehirSpan) {
+            } else {
+                // Span varsa sadece text'i değiştir
                 sehirSpan.textContent = sehirAdi;
             }
             
@@ -96,11 +121,21 @@
         }
     };
     
-    // YENİ ŞEHİR EKLEME FONKSİYONU
+    // YENİ ŞEHİR EKLEME FONKSİYONU (DÜZELTİLDİ)
     const addNewCity = (sehirId, sehirAdi) => {
         try {
             const buttonsWrapper = document.querySelector('.sehir-butonlari-wrapper');
-            if (!buttonsWrapper) return false;
+            if (!buttonsWrapper) {
+                console.error('❌ Buton wrapper bulunamadı!');
+                return false;
+            }
+            
+            // Buton zaten var mı kontrol et
+            const existingButton = buttonsWrapper.querySelector(`[data-sehir="${sehirId}"]`);
+            if (existingButton) {
+                console.warn(`⚠️ ${sehirAdi} butonu zaten var`);
+                return false;
+            }
             
             const newButton = document.createElement('button');
             newButton.className = 'sehir-btn';
@@ -109,14 +144,30 @@
             
             newButton.addEventListener('click', function() {
                 const allButtons = document.querySelectorAll('.sehir-btn');
+                
+                // Tüm butonlardan active class'ını kaldır
                 allButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Yeni butona active class'ını ekle
                 this.classList.add('active');
+                
+                // Aktif şehri güncelle
+                aktifSehirId = sehirId;
+                
+                // Header'daki şehir adını güncelle
                 updateHeaderSehir(sehirAdi);
                 
+                // Event tetikle
                 const event = new CustomEvent('sehirDegisti', {
-                    detail: { sehirId: sehirId, sehirAdi: sehirAdi }
+                    detail: { 
+                        sehirId: sehirId, 
+                        sehirAdi: sehirAdi,
+                        yeniEklendi: true 
+                    }
                 });
                 document.dispatchEvent(event);
+                
+                console.log(`📍 Yeni şehir seçildi: ${sehirAdi}`);
             });
             
             buttonsWrapper.appendChild(newButton);
@@ -129,6 +180,26 @@
         }
     };
     
+    // İZMİR BUTONUNU SABİT AKTİF YAPMA (DÜZELTİLDİ)
+    const fixIzmirButton = () => {
+        try {
+            const izmirButton = document.querySelector('[data-sehir="izmir"]');
+            if (izmirButton && izmirButton.classList.contains('active')) {
+                // İzmir aktifse ve aksaray aktif değilse, aksaray'ı aktif yap
+                const aksarayButton = document.querySelector('[data-sehir="aksaray"]');
+                if (aksarayButton && aktifSehirId !== 'aksaray') {
+                    izmirButton.classList.remove('active');
+                    aksarayButton.classList.add('active');
+                    aktifSehirId = 'aksaray';
+                    updateHeaderSehir('AKSARAY');
+                    console.log('✅ İzmir butonu düzeltildi, Aksaray aktif yapıldı');
+                }
+            }
+        } catch (error) {
+            console.error('❌ İzmir butonu düzeltme hatası:', error);
+        }
+    };
+    
     // BAŞLATMA
     const init = () => {
         // Butonları oluştur
@@ -138,15 +209,23 @@
             // İlk şehir adını header'a yerleştir
             updateHeaderSehir('AKSARAY');
             
+            // İzmir butonu kontrolü
+            setTimeout(fixIzmirButton, 1000);
+            
             // Global fonksiyonları ekle
             window.SehirButonlari = {
                 yeniSehirEkle: addNewCity,
                 aktifSehriGetir: () => {
-                    const activeBtn = document.querySelector('.sehir-btn.active');
-                    return activeBtn ? {
-                        id: activeBtn.getAttribute('data-sehir'),
-                        adi: activeBtn.textContent
-                    } : null;
+                    return {
+                        id: aktifSehirId,
+                        adi: document.querySelector('.sehir-btn.active')?.textContent || 'AKSARAY'
+                    };
+                },
+                sehirDegistir: (sehirId) => {
+                    const button = document.querySelector(`[data-sehir="${sehirId}"]`);
+                    if (button) {
+                        button.click();
+                    }
                 }
             };
             
