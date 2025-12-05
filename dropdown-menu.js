@@ -8,10 +8,13 @@
     // HER ŞEHİR İÇİN FARKLI SEÇENEKLER
     const sehirSecenekleri = {
         aksaray: [
-            { deger: "temel-kod", metin: "Temel Kodlar" },
-            { deger: "fabrika-otomasyon", metin: "Fabrika Otomasyon" },
-            { deger: "veritabani", metin: "Veritabanı Scriptleri" },
-            { deger: "raporlar", metin: "Üretim Raporları" }
+            { name: "1000T Pres", url:"index.html" },
+            { name: "2000T Pres", url: "hidromode-2000t.html" },
+            { name: "5000T Pres", url: "5000t-pres.html" },
+            { name: "6000T Pres", url: "6000t-pres.html" },
+            { name: "SMG Pres", url: "smg-pres.html"},
+            { name: "Stenhoj", url: "sthenhoj.html"},
+            { name: "Gazaltı-1-2-3", url:"gazalti-1-2-3.html"}
         ],
         bursa: [
             { deger: "cnc-program", metin: "CNC Programları" },
