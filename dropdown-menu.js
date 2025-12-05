@@ -13,19 +13,19 @@
             { deger: "veritabani", metin: "Veritabanı Scriptleri" },
             { deger: "raporlar", metin: "Üretim Raporları" }
         ],
-        konya: [
+        bursa: [
             { deger: "cnc-program", metin: "CNC Programları" },
             { deger: "kalite-kontrol", metin: "Kalite Kontrol" },
             { deger: "uretim-hatti", metin: "Üretim Hattı" },
             { deger: "makina-bakim", metin: "Makina Bakım" }
         ],
-        ankara: [
+        manisa: [
             { deger: "ofis-otomasyon", metin: "Ofis Otomasyon" },
             { deger: "yonetim-panel", metin: "Yönetim Paneli" },
             { deger: "rapor-sistem", metin: "Raporlama Sistemi" },
             { deger: "guvenlik", metin: "Güvenlik Yazılımları" }
         ],
-        istanbul: [
+        kocaeli: [
             { deger: "iot-sistem", metin: "IoT Sistemleri" },
             { deger: "akilli-sehir", metin: "Akıllı Şehir" },
             { deger: "arge-proje", metin: "AR-GE Projeleri" },
@@ -38,7 +38,7 @@
         try {
             const buttonsContainer = document.querySelector('.sehir-butonlari-container');
             if (!buttonsContainer) {
-                console.error('❌ Buton container bulunamadı!');
+                console.error('Buton container bulunamadı!');
                 return false;
             }
             
@@ -57,11 +57,11 @@
             // Butonlardan sonra ekle
             buttonsContainer.parentNode.insertBefore(dropdownContainer, buttonsContainer.nextSibling);
             
-            console.log('✅ Dropdown menü oluşturuldu');
+            console.log('Dropdown menü oluşturuldu');
             return true;
             
         } catch (error) {
-            console.error('❌ Dropdown oluşturma hatası:', error);
+            console.error('Dropdown oluşturma hatası:', error);
             return false;
         }
     };
@@ -92,10 +92,10 @@
             const sehirAdi = getSehirAdi(sehirId);
             label.textContent = `${sehirAdi} İçerik Seçin:`;
             
-            console.log(`✅ Dropdown güncellendi: ${sehirAdi}`);
+            console.log(`Dropdown güncellendi: ${sehirAdi}`);
             
         } catch (error) {
-            console.error('❌ Dropdown güncelleme hatası:', error);
+            console.error('Dropdown güncelleme hatası:', error);
         }
     };
     
@@ -103,9 +103,9 @@
     const getSehirAdi = (sehirId) => {
         const sehirler = {
             aksaray: 'AKSARAY',
-            konya: 'KONYA',
-            ankara: 'ANKARA',
-            istanbul: 'İSTANBUL'
+            bursa: 'BURSA',
+            manisa: 'MANİSA',
+            kocaeli: 'KOCAELİ'
         };
         return sehirler[sehirId] || sehirId.toUpperCase();
     };
@@ -139,7 +139,7 @@
                     });
                     document.dispatchEvent(event);
                     
-                    console.log(`📂 Seçilen: ${secilenMetin}`);
+                    console.log(`Seçilen: ${secilenMetin}`);
                 }
             });
         }
@@ -183,7 +183,7 @@
                 }
             };
             
-            console.log('✅ Dropdown menü sistemi hazır');
+            console.log('Dropdown menü sistemi hazır');
         }
     };
     
