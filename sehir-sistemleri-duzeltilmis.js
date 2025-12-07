@@ -88,7 +88,7 @@
             .sehir-adi-header {
                 color: white;
                 font-weight: 600;
-                margin-left: 10px;
+                margin: auto;
                 padding: 5px 15px;
                
             }
