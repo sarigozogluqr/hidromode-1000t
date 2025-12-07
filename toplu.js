@@ -20,146 +20,238 @@
     };
     
     // CSS EKLEME (tüm stiller burada)
-    const addGlobalStyles = () => {
-        try {
-            const style = document.createElement('style');
-            style.textContent = `
-                /* ŞEHİR BUTONLARI */
-                
-                .sehir-butonlari-wrapper {
-                    display: flex;
-                    flex-wrap: nowrap;
-                    overflow-x: auto;
-                    justify-content: flex-start;
-                    gap: 8px;
-                    paddin-bottom: 5px;
-                    -webkit-overflow-scrolling: touch;
-                }
+  // toplu.js - CSS kısmını TAMAMEN şu şekilde değiştirin:
+
+const addGlobalStyles = () => {
+    try {
+        const style = document.createElement('style');
+        style.textContent = `
+            /* ŞEHİR BUTONLARI - 4 BUTON YAN YANA TAM GENİŞLİK */
+            .sehir-butonlari-container {
+                background: #f0f0f0;
+                padding: 0; /* PADDING KALDIR (tam genişlik için) */
+                border-bottom: 2px solid #ddd;
+                width: 100%;
+            }
+            
+            .sehir-butonlari-wrapper {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr); /* 4 EŞİT SÜTUN */
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                gap: 0; /* BUTONLAR ARASINDA BOŞLUK YOK */
+            }
+            
+            .sehir-btn {
+                background: white;
+                border: none;
+                border-right: 1px solid #ddd; /* BUTONLARI AYIRAN ÇİZGİ */
+                color: #230564;
+                font-weight: bold;
+                cursor: pointer;
+                font-size: 14px;
+                font-family: inherit;
+                transition: all 0.3s;
+                padding: 15px 5px; /* YÜKSEKLİK SABİT, YAN PADDING AZ */
+                text-align: center;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 100%; /* TAM GENİŞLİK */
+                height: 60px; /* SABİT YÜKSEKLİK */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            /* SON BUTONDA SAĞ ÇİZGİ OLMASIN */
+            .sehir-btn:last-child {
+                border-right: none;
+            }
+            
+            .sehir-btn:hover {
+                background: #230564;
+                color: white;
+            }
+            
+            .sehir-btn.active {
+                background: #230564;
+                color: white;
+                position: relative;
+            }
+            
+            /* AKTİF BUTON ALT ÇİZGİ */
+            .sehir-btn.active::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 4px;
+                background: #ffcc00; /* SARI VURGU */
+            }
+            
+            .sehir-adi-header {
+                color: white !important;
+                font-weight: 700;
+                display: inline;
+                background: none;
+                border: none;
+                padding: 0;
+                margin: 0;
+                text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            }
+            
+            /* DROPDOWN MENÜ */
+            .dropdown-menu-container {
+                background: #f8f9fa;
+                padding: 20px;
+                border-bottom: 2px solid #ddd;
+                text-align: center;
+            }
+            .dropdown-menu-wrapper {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            .dropdown-menu-label {
+                display: block;
+                margin-bottom: 8px;
+                color: #230564;
+                font-weight: 600;
+                font-size: 16px;
+            }
+            .dropdown-menu-select {
+                width: 100%;
+                padding: 12px 15px;
+                border: 2px solid #230564;
+                border-radius: 8px;
+                background: white;
+                color: #230564;
+                font-size: 16px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+            .dropdown-menu-select:hover {
+                border-color: #1a044a;
+            }
+            .dropdown-menu-select:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(35, 5, 100, 0.2);
+            }
+            
+            /* RESPONSIVE DÜZENLEMELER */
+            
+            /* KÜÇÜK MOBİL (0-480px) - YAZILARI KÜÇÜLT */
+            @media (max-width: 480px) {
                 .sehir-btn {
-                flex: 0 0 auto;
-                    padding: 10px 15px;
-                    min-width: 100px;
-                    white-space: nowrap;
+                    font-size: 12px;
+                    height: 50px;
+                    padding: 10px 3px;
                 }
-                .sehir-btn:hover {
-                    background: #230564;
-                    color: white;
-                    transform: translateY(-2px);
+                .header h1 {
+                    font-size: 20px;
                 }
-                .sehir-btn.active {
-                    background: #230564;
-                    color: white;
-                    box-shadow: 0 4px 10px rgba(35, 5, 100, 0.3);
-                }
-                .sehir-adi-header {
-                    color: white !important;
-                    font-weight: 700;
-                    display: inline;
-                    background: none;
-                    border: none;
-                    padding: 0;
-                    margin: 0;
-                    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-                }
-                
-                /* DROPDOWN MENÜ */
                 .dropdown-menu-container {
-                    background: #f8f9fa;
-                    padding: 20px;
-                    border-bottom: 2px solid #ddd;
-                    text-align: center;
-                }
-                .dropdown-menu-wrapper {
-                    max-width: 500px;
-                    margin: 0 auto;
-                }
-                .dropdown-menu-label {
-                    display: block;
-                    margin-bottom: 8px;
-                    color: #230564;
-                    font-weight: 600;
-                    font-size: 16px;
+                    padding: 15px;
                 }
                 .dropdown-menu-select {
-                    width: 100%;
-                    padding: 12px 15px;
-                    border: 2px solid #230564;
-                    border-radius: 8px;
-                    background: white;
-                    color: #230564;
+                    padding: 10px 12px;
+                    font-size: 14px;
+                }
+            }
+            
+            /* ÇOK KÜÇÜK EKRAN (0-320px) - 4 BUTON YİNE YAN YANA */
+            @media (max-width: 320px) {
+                .sehir-btn {
+                    font-size: 11px;
+                    height: 45px;
+                    padding: 8px 2px;
+                }
+            }
+            
+            /* BÜYÜK EKRAN (769px+) - YAZILARI BÜYÜT */
+            @media (min-width: 769px) {
+                .sehir-btn {
                     font-size: 16px;
-                    font-weight: 500;
-                    cursor: pointer;
-                    transition: all 0.3s;
+                    height: 70px;
+                    padding: 20px 10px;
                 }
-                .dropdown-menu-select:hover {
-                    border-color: #1a044a;
+                .header h1 {
+                    font-size: 28px;
                 }
-                .dropdown-menu-select:focus {
-                    outline: none;
-                    box-shadow: 0 0 0 3px rgba(35, 5, 100, 0.2);
+            }
+            
+            /* TABLET (481-768px) - ORTA BOY */
+            @media (min-width: 481px) and (max-width: 768px) {
+                .sehir-btn {
+                    font-size: 14px;
+                    height: 60px;
+                    padding: 15px 5px;
                 }
-                
-                /* İÇERİK ALANI (gerekirse kullanılır) */
-                .sehir-icerik-container {
-                    padding: 30px;
+                .header h1 {
+                    font-size: 24px;
                 }
-                .sehir-icerik-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                    gap: 15px;
-                    margin-top: 20px;
-                }
-                .sehir-dosya-btn {
-                    display: block;
-                    background: #230564;
-                    color: white;
-                    text-decoration: none;
-                    padding: 16px 20px;
+            }
+            
+            /* GENEL MOBİL OPTİMİZASYONLARI */
+            @media (max-width: 768px) {
+                .container {
                     border-radius: 10px;
-                    font-weight: 500;
-                    transition: all 0.3s;
-                    text-align: center;
+                    margin: 10px;
+                    max-width: calc(100% - 20px);
+                }
+                .header {
+                    padding: 20px;
+                }
+            }
+            
+            /* İÇERİK ALANI */
+            .sehir-icerik-container {
+                padding: 30px;
+            }
+            .sehir-icerik-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 12px;
+                margin-top: 20px;
+            }
+            .sehir-dosya-btn {
+                display: block;
+                background: #230564;
+                color: white;
+                text-decoration: none;
+                padding: 14px 18px;
+                border-radius: 8px;
+                font-weight: 500;
+                transition: all 0.3s;
+                text-align: center;
+                font-size: 14px;
+            }
+            .sehir-dosya-btn:hover {
+                background: #1a044a;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            }
+            
+            /* MOBİLDE HOVER ETKİSİNİ KALDIR */
+            @media (hover: none) and (pointer: coarse) {
+                .sehir-btn:hover {
+                    transform: none;
                 }
                 .sehir-dosya-btn:hover {
-                    background: #1a044a;
-                    transform: translateY(-3px);
-                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                    transform: none;
                 }
-                
-                /* RESPONSIVE DÜZENLEMELER */
-                @media (max-width: 768px) {
-                    .sehir-butonlari-wrapper {
-                        gap: 10px;
-                    }
-                    .sehir-btn {
-                        padding: 10px 15px;
-                        font-size: 14px;
-                    }
-                    .dropdown-menu-select {
-                        padding: 10px 12px;
-                        font-size: 14px;
-                    }
-                }
-                
-                @media (max-width: 480px) {
-                    .sehir-butonlari-wrapper {
-                        flex-direction: column;
-                        align-items: center;
-                    }
-                    .sehir-btn {
-                        width: 90%;
-                        max-width: 250px;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-            console.log('✅ CSS stilleri eklendi');
-            return true;
-        } catch (error) {
-            return handleError(error, 'CSS ekleme');
-        }
-    };
+            }
+        `;
+        document.head.appendChild(style);
+        console.log('✅ CSS stilleri eklendi (4 buton yan yana)');
+        return true;
+    } catch (error) {
+        return handleError(error, 'CSS ekleme');
+    }
+};
     
     // SCRIPT YÜKLEYİCİ
     const loadScript = (src) => {
