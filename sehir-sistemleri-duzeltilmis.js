@@ -126,7 +126,8 @@
                 color: #230564;
                 font-size: 16px;
                 cursor: pointer;
-                font-weight: 600;
+                font-weight: 100;
+                font: italic;
             }
             
             .sehir-dropdown-select option {
@@ -154,11 +155,11 @@
         document.head.appendChild(style);
     }
     
-    // === 3. BUTONLARI OLUŞTUR ===
+    
     function createButtons() {
         const header = document.querySelector('.header');
         if (!header) {
-            console.error('❌ Header bulunamadı!');
+            console.error('Header bulunamadı!');
             return false;
         }
         
@@ -250,9 +251,9 @@
         container.className = 'sehir-dropdown-container';
         container.innerHTML = `
             <div class="sehir-dropdown-wrapper">
-                <label class="sehir-dropdown-label" id="dropdown-label">${currentCity.name} MAKİNA SEÇİN:</label>
+                <label class="sehir-dropdown-label" id="dropdown-label">${currentCity.name} HEPSİNİ GÖRÜNTÜLE:</label>
                 <select class="sehir-dropdown-select" id="machine-dropdown">
-                    <option value="">Makina seçin...</option>
+                    <option value="">(Seçim Yapın)</option>
                 </select>
             </div>
         `;
