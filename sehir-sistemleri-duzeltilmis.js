@@ -87,11 +87,9 @@
             /* HEADER ŞEHİR ADI */
             .sehir-adi-header {
                 color: white;
-                font-weight: 700;
+                font-weight: 600;
                 margin-left: 10px;
-               
                 padding: 5px 15px;
-                border-radius: 5px;
                
             }
             
