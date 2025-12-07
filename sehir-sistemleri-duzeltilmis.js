@@ -91,6 +91,8 @@
                 margin:0 auto;
                 padding: 5px 15px;
                 display: flex;
+                justify-content: center;
+                
                
             }
         
