@@ -1,10 +1,8 @@
-// sehir-sistemleri-duzeltilmis.js - DROPDOWN DÜZGÜN ÇALIŞIYOR
 (() => {
     'use strict';
     
-    console.log('🔧 Şehir Sistemi Yükleniyor...');
+    console.log('Şehir Sistemi Yükleniyor...');
     
-    // === 1. VERİLER ===
     const CITIES = [
         { id: 'aksaray', name: 'AKSARAY' },
         { id: 'bursa', name: 'BURSA' },
@@ -43,9 +41,8 @@
     };
     
     let currentCity = CITIES[0];
-    let originalFileNames = {}; // Orijinal dosya isimlerini saklayacağız
-    
-    // === 2. CSS EKLEME ===
+    let originalFileNames = {}; 
+  
     function injectCSS() {
         if (document.getElementById('sehir-css')) return;
         
@@ -92,10 +89,10 @@
                 color: white;
                 font-weight: 700;
                 margin-left: 10px;
-                background: rgba(255, 255, 255, 0.2);
+               
                 padding: 5px 15px;
                 border-radius: 5px;
-                display: inline-block;
+               
             }
             
             /* DROPDOWN MENÜ */
