@@ -126,8 +126,8 @@
                 color: #230564;
                 font-size: 16px;
                 cursor: pointer;
-                font-weight: 100;
-                font: italic;
+                font-weight: 300;
+                font-style: italic;
             }
             
             .sehir-dropdown-select option {
