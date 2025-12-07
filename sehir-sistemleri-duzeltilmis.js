@@ -88,11 +88,12 @@
             .sehir-adi-header {
                 color: white;
                 font-weight: 600;
-                margin: auto;
+                margin:0 auto;
                 padding: 5px 15px;
+                display: flex;
                
             }
-            
+        
             /* DROPDOWN MENÜ */
             .sehir-dropdown-container {
                 background: #f8f9fa;
