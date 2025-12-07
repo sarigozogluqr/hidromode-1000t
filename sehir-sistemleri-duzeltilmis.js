@@ -1,8 +1,10 @@
-// sehir-sistemleri-duzeltilmis.js - DÜZELTİLMİŞ VERSİYON
+// sehir-sistemleri-duzeltilmis.js - DROPDOWN DÜZGÜN ÇALIŞIYOR
 (() => {
     'use strict';
     
-    // === 1. KONFİGÜRASYON VE VERİLER ===
+    console.log('🔧 Şehir Sistemi Yükleniyor...');
+    
+    // === 1. VERİLER ===
     const CITIES = [
         { id: 'aksaray', name: 'AKSARAY' },
         { id: 'bursa', name: 'BURSA' },
@@ -41,127 +43,70 @@
     };
     
     let currentCity = CITIES[0];
-    let citySpan = null;
+    let originalFileNames = {}; // Orijinal dosya isimlerini saklayacağız
     
-    // === 2. CSS EKLEME (DÜZELTİLDİ) ===
+    // === 2. CSS EKLEME ===
     function injectCSS() {
-        if (document.getElementById('sehir-sistem-css')) return;
+        if (document.getElementById('sehir-css')) return;
         
         const css = `
-            /* ŞEHİR BUTONLARI - TAM GENİŞLİK, YAN YANA */
+            /* ŞEHİR BUTONLARI */
             .sehir-butonlari-container {
-                width: 100%;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                padding: 0;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                background: #f0f0f0;
+                padding: 15px;
+                border-bottom: 2px solid #ddd;
             }
             
             .sehir-butonlari-wrapper {
-                display: flex; /* YAN YANA - SABİT */
-                width: 100%;
-                flex-wrap: nowrap; /* ASLA ALT ALTA GEÇMESİN */
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                flex-wrap: wrap;
             }
             
             .sehir-btn {
-                flex: 1;
-                padding: 16px 5px;
-                background: rgba(255, 255, 255, 0.9);
-                border: none;
-                color: #333;
-                font-weight: 700;
-                font-size: 14px;
+                padding: 12px 25px;
+                background: white;
+                border: 2px solid #230564;
+                border-radius: 8px;
+                color: #230564;
+                font-weight: bold;
                 cursor: pointer;
-                transition: all 0.3s ease;
-                text-align: center;
-                border-right: 1px solid rgba(0, 0, 0, 0.1);
-                white-space: nowrap; /* METİN KAYMASIN */
-                overflow: hidden;
-                text-overflow: ellipsis;
-                min-height: 50px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .sehir-btn:last-child {
-                border-right: none;
+                transition: all 0.3s;
+                min-width: 120px;
             }
             
             .sehir-btn:hover {
-                background: white;
-                transform: translateY(-2px);
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                background: #230564;
+                color: white;
             }
             
             .sehir-btn.active {
-                background: white;
-                color: #230564;
-                font-weight: 800;
-                box-shadow: 0 0 20px rgba(35, 5, 100, 0.3);
-                position: relative;
+                background: #230564;
+                color: white;
+                box-shadow: 0 4px 10px rgba(35, 5, 100, 0.3);
             }
             
-            .sehir-btn.active::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 4px;
-                background: linear-gradient(90deg, #ffcc00, #ff9900);
-            }
-            
-            /* MOBİL İÇİN - BUTONLAR YAN YANA KALSIN (KÜÇÜK YAZI) */
-            @media (max-width: 768px) {
-                .sehir-btn {
-                    padding: 12px 3px;
-                    font-size: 12px;
-                    min-height: 45px;
-                }
-                
-                .sehir-butonlari-wrapper {
-                    flex-wrap: nowrap; /* ÖNEMLİ: ASLA ALT ALTA GEÇMESİN */
-                    overflow-x: auto; /* YATAY KAYDIRMA */
-                    -webkit-overflow-scrolling: touch;
-                }
-                
-                .sehir-btn {
-                    flex: 0 0 25%; /* HER BİRİ %25 GENİŞLİK */
-                    min-width: 80px; /* MIN GENİŞLİK */
-                }
-            }
-            
-            @media (max-width: 480px) {
-                .sehir-btn {
-                    font-size: 11px;
-                    padding: 10px 2px;
-                    min-height: 40px;
-                }
-            }
-            
-            /* HEADER ŞEHİR ADI - BEYAZ RENK, TEK SPAN (DÜZELTİLDİ) */
+            /* HEADER ŞEHİR ADI */
             .sehir-adi-header {
-                color: white !important;
+                color: white;
                 font-weight: 700;
-                font-size: 1.2em;
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
                 margin-left: 10px;
-                background: rgba(255, 255, 255, 0.15);
-                padding: 4px 12px;
-                border-radius: 4px;
-                border: 1px solid rgba(255, 255, 255, 0.2);
+                background: rgba(255, 255, 255, 0.2);
+                padding: 5px 15px;
+                border-radius: 5px;
                 display: inline-block;
             }
             
             /* DROPDOWN MENÜ */
             .sehir-dropdown-container {
-                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-                padding: 20px 15px;
-                border-bottom: 3px solid #230564;
+                background: #f8f9fa;
+                padding: 20px;
+                border-bottom: 2px solid #ddd;
             }
             
             .sehir-dropdown-wrapper {
-                max-width: 100%;
+                max-width: 600px;
                 margin: 0 auto;
             }
             
@@ -170,8 +115,8 @@
                 margin-bottom: 10px;
                 color: #230564;
                 font-weight: 700;
-                font-size: 16px;
                 text-align: center;
+                font-size: 18px;
             }
             
             .sehir-dropdown-select {
@@ -181,136 +126,133 @@
                 border-radius: 8px;
                 background: white;
                 color: #230564;
-                font-size: 14px;
-                font-weight: 600;
+                font-size: 16px;
                 cursor: pointer;
+                font-weight: 600;
             }
             
-            /* MOBİL DROPDOWN */
+            .sehir-dropdown-select option {
+                padding: 10px;
+                font-size: 15px;
+            }
+            
+            /* MOBİL */
             @media (max-width: 768px) {
-                .sehir-dropdown-container {
-                    padding: 15px 10px;
-                }
-                
-                .sehir-dropdown-label {
+                .sehir-btn {
+                    padding: 10px 15px;
+                    min-width: 100px;
                     font-size: 14px;
                 }
                 
-                .sehir-dropdown-select {
-                    padding: 10px 12px;
-                    font-size: 13px;
+                .sehir-butonlari-wrapper {
+                    gap: 5px;
                 }
             }
         `;
         
         const style = document.createElement('style');
-        style.id = 'sehir-sistem-css';
+        style.id = 'sehir-css';
         style.textContent = css;
         document.head.appendChild(style);
     }
     
-    // === 3. BUTONLARI OLUŞTUR (DÜZELTİLDİ) ===
+    // === 3. BUTONLARI OLUŞTUR ===
     function createButtons() {
-        // Eski butonları temizle
-        const oldContainer = document.querySelector('.sehir-butonlari-container');
-        if (oldContainer) oldContainer.remove();
-        
         const header = document.querySelector('.header');
         if (!header) {
             console.error('❌ Header bulunamadı!');
             return false;
         }
         
-        // Container oluştur
+        // Eski butonları temizle
+        const oldContainer = document.querySelector('.sehir-butonlari-container');
+        if (oldContainer) oldContainer.remove();
+        
+        // Yeni container oluştur
         const container = document.createElement('div');
         container.className = 'sehir-butonlari-container';
-        container.id = 'city-buttons-container';
+        container.innerHTML = `
+            <div class="sehir-butonlari-wrapper">
+                <button class="sehir-btn active" data-city="aksaray">AKSARAY</button>
+                <button class="sehir-btn" data-city="bursa">BURSA</button>
+                <button class="sehir-btn" data-city="manisa">MANİSA</button>
+                <button class="sehir-btn" data-city="kocaeli">KOCAELİ</button>
+            </div>
+        `;
         
-        // Wrapper oluştur
-        const wrapper = document.createElement('div');
-        wrapper.className = 'sehir-butonlari-wrapper';
-        
-        // Butonları oluştur
-        CITIES.forEach((city, index) => {
-            const button = document.createElement('button');
-            button.className = `sehir-btn ${index === 0 ? 'active' : ''}`;
-            button.dataset.city = city.id;
-            button.dataset.cityName = city.name;
-            button.textContent = city.name;
-            button.type = 'button'; // FORM GÖNDERİLMESİN
-            wrapper.appendChild(button);
-        });
-        
-        container.appendChild(wrapper);
-        
-        // Header'dan sonra ekle
         header.insertAdjacentElement('afterend', container);
-        
+        console.log('✅ Butonlar oluşturuldu');
         return true;
     }
     
-    // === 4. HEADER'A ŞEHİR ADI EKLE (DÜZELTİLDİ - TEK SPAN) ===
+    // === 4. HEADER'A ŞEHİR ADI EKLE ===
     function setupHeaderCity() {
         const headerH1 = document.querySelector('.header h1');
-        if (!headerH1) return;
+        if (!headerH1) {
+            console.error('❌ Header h1 bulunamadı!');
+            return;
+        }
         
-        // Önceki tüm şehir span'larını temizle
+        // Önceki şehir span'larını temizle
         const oldSpans = headerH1.querySelectorAll('.sehir-adi-header');
         oldSpans.forEach(span => span.remove());
         
-        // Tek bir span oluştur
-        citySpan = document.createElement('span');
-        citySpan.className = 'sehir-adi-header';
-        citySpan.id = 'current-city-name';
-        citySpan.textContent = currentCity.name;
+        // Yeni span oluştur
+        const span = document.createElement('span');
+        span.className = 'sehir-adi-header';
+        span.id = 'current-city-name';
+        span.textContent = currentCity.name;
         
-        // "SARIGÖZOĞLU" yazısından sonra ekle
-        const headerText = headerH1.textContent || headerH1.innerText;
-        
-        if (headerText.includes('SARIGÖZOĞLU')) {
-            // Sadece SARIGÖZOĞLU'yu bırak, şehri span olarak ekle
-            headerH1.innerHTML = 'SARIGÖZOĞLU ';
-            headerH1.appendChild(citySpan);
-        } else {
-            // Mevcut metni koru, sonuna şehir span'ını ekle
-            headerH1.innerHTML = headerText + ' ';
-            headerH1.appendChild(citySpan);
-        }
+        // Header'a ekle
+        headerH1.innerHTML = 'SARIGÖZOĞLU ';
+        headerH1.appendChild(span);
         
         console.log('✅ Header şehir adı eklendi:', currentCity.name);
     }
     
-    // === 5. HEADER'DA ŞEHİR ADINI DEĞİŞTİR (DÜZELTİLDİ) ===
+    // === 5. HEADER ŞEHİR ADINI GÜNCELLE ===
     function updateHeaderCity(cityName) {
-        if (!citySpan) {
-            // Eğer span yoksa oluştur
-            setupHeaderCity();
-        }
-        
-        if (citySpan) {
-            // SADECE TEXT DEĞİŞTİR, YENİ SPAN OLUŞTURMA
-            citySpan.textContent = cityName;
-            console.log('🔄 Header şehir adı güncellendi:', cityName);
+        const span = document.getElementById('current-city-name');
+        if (span) {
+            span.textContent = cityName;
+            console.log('🔄 Header güncellendi:', cityName);
         } else {
-            console.error('❌ Şehir span bulunamadı!');
+            setupHeaderCity();
         }
     }
     
-    // === 6. DROPDOWN OLUŞTUR ===
+    // === 6. ORİJİNAL DOSYA İSİMLERİNİ KAYDET ===
+    function saveOriginalFileNames() {
+        const docButtons = document.querySelectorAll('.doc-button, a[href*="drive.google.com"]');
+        originalFileNames = {};
+        
+        docButtons.forEach((link, index) => {
+            const originalText = link.textContent.trim();
+            originalFileNames[index] = originalText;
+            console.log(`📝 Orijinal dosya ${index + 1}: "${originalText}"`);
+        });
+        
+        console.log('✅ Orijinal dosya isimleri kaydedildi:', originalFileNames);
+    }
+    
+    // === 7. DROPDOWN OLUŞTUR ===
     function createDropdown() {
         // Eski dropdown'ı temizle
         const oldDropdown = document.querySelector('.sehir-dropdown-container');
         if (oldDropdown) oldDropdown.remove();
         
-        const buttonsContainer = document.getElementById('city-buttons-container');
-        if (!buttonsContainer) return false;
+        const buttonsContainer = document.querySelector('.sehir-butonlari-container');
+        if (!buttonsContainer) {
+            console.error('❌ Buton container bulunamadı!');
+            return false;
+        }
         
+        // Yeni dropdown oluştur
         const container = document.createElement('div');
         container.className = 'sehir-dropdown-container';
-        container.id = 'city-dropdown-container';
         container.innerHTML = `
             <div class="sehir-dropdown-wrapper">
-                <label class="sehir-dropdown-label" id="dropdown-label">${currentCity.name} Makina Seçin:</label>
+                <label class="sehir-dropdown-label" id="dropdown-label">${currentCity.name} MAKİNA SEÇİN:</label>
                 <select class="sehir-dropdown-select" id="machine-dropdown">
                     <option value="">Makina seçin...</option>
                 </select>
@@ -318,108 +260,192 @@
         `;
         
         buttonsContainer.insertAdjacentElement('afterend', container);
+        console.log('✅ Dropdown oluşturuldu');
         return true;
     }
     
-    // === 7. DROPDOWN İÇERİĞİNİ GÜNCELLE ===
+    // === 8. DROPDOWN İÇERİĞİNİ DOLDUR (DÜZELTİLDİ) ===
     function updateDropdown(cityId) {
         const select = document.getElementById('machine-dropdown');
         const label = document.getElementById('dropdown-label');
         
-        if (!select || !label) return;
+        if (!select) {
+            console.error('❌ Dropdown select bulunamadı!');
+            return;
+        }
         
-        // Temizle
+        if (!label) {
+            console.error('❌ Dropdown label bulunamadı!');
+            return;
+        }
+        
+        console.log(`🔄 Dropdown güncelleniyor: ${cityId}`);
+        
+        // Önce temizle
         select.innerHTML = '<option value="">Makina seçin...</option>';
         
         // Seçenekleri ekle
-        const machines = MACHINE_DATA[cityId] || [];
-        machines.forEach(machine => {
+        const machines = MACHINE_DATA[cityId];
+        if (machines && machines.length > 0) {
+            machines.forEach((machine) => {
+                const option = document.createElement('option');
+                option.value = machine.url;
+                option.textContent = machine.name;
+                select.appendChild(option);
+            });
+            
+            console.log(`✅ ${machines.length} makine eklendi`);
+            
+            // HER MAKİNEYİ KONSOLA YAZDIR (DEBUG)
+            machines.forEach((machine, index) => {
+                console.log(`   ${index + 1}. ${machine.name} -> ${machine.url}`);
+            });
+            
+        } else {
+            console.warn(`⚠️ ${cityId} için makine bulunamadı!`);
             const option = document.createElement('option');
-            option.value = machine.url;
-            option.textContent = machine.name;
+            option.value = "";
+            option.textContent = "Bu şehir için makine bulunamadı";
             select.appendChild(option);
-        });
+        }
         
         // Label'ı güncelle
         const city = CITIES.find(c => c.id === cityId);
         if (city) {
-            label.textContent = `${city.name} Makina Seçin:`;
+            label.textContent = `${city.name} MAKİNA SEÇİN:`;
         }
     }
     
-    // === 8. SAYFA İÇERİĞİNİ GÜNCELLE ===
-    function updatePageContent(cityId) {
-        // Google Drive linklerini güncelle
-        const docButtons = document.querySelectorAll('.doc-button');
+    // === 9. DOSYA LİNKLERİNİ GÜNCELLE (DÜZELTİLDİ) ===
+    function updateFileLinks(cityId) {
+        const docButtons = document.querySelectorAll('.doc-button, a[href*="drive.google.com"]');
+        const cityName = CITIES.find(c => c.id === cityId)?.name || cityId.toUpperCase();
+        
+        console.log(`🔄 Dosya linkleri güncelleniyor: ${cityName}`);
+        console.log(`📎 Bulunan link sayısı: ${docButtons.length}`);
+        
+        if (docButtons.length === 0) {
+            console.log('ℹ️ Güncellenecek dosya linki bulunamadı');
+            return;
+        }
+        
+        // Eğer orijinal isimler kaydedilmemişse kaydet
+        if (Object.keys(originalFileNames).length === 0) {
+            saveOriginalFileNames();
+        }
+        
         docButtons.forEach((link, index) => {
             const href = link.getAttribute('href');
             if (href && href.includes('drive.google.com')) {
-                const newHref = href.replace(
-                    /(aksaray|bursa|manisa|kocaeli)/g,
-                    cityId
-                );
+                // Link'i güncelle
+                let newHref = href;
+                
+                // Tüm şehir isimlerini kontrol et ve değiştir
+                CITIES.forEach(city => {
+                    if (href.includes(city.id)) {
+                        newHref = href.replace(city.id, cityId);
+                        console.log(`   Link ${index + 1}: ${city.id} -> ${cityId}`);
+                    }
+                });
+                
                 link.setAttribute('href', newHref);
                 
-                const city = CITIES.find(c => c.id === cityId);
-                if (city) {
-                    link.textContent = `${city.name} Dosya-${index + 1}`;
+                // Metni güncelle (orijinal ismi kullan)
+                if (originalFileNames[index]) {
+                    // Orijinal metinden sadece şehir adını değiştir
+                    const originalText = originalFileNames[index];
+                    const newText = originalText.replace(
+                        /(AKSARAY|BURSA|MANİSA|KOCAELİ)/,
+                        cityName
+                    );
+                    
+                    link.textContent = newText;
+                    console.log(`   Metin ${index + 1}: "${originalText}" -> "${newText}"`);
+                } else {
+                    // Orijinal isim yoksa sadece şehir adıyla oluştur
+                    link.textContent = `${cityName} Dosya-${index + 1}`;
                 }
             }
         });
+        
+        console.log('✅ Dosya linkleri güncellendi');
     }
     
-    // === 9. EVENT HANDLER'LAR (DÜZELTİLDİ) ===
+    // === 10. EVENT HANDLER'LAR ===
     function setupEventHandlers() {
-        // 1. ŞEHİR BUTONLARI - EVENT DELEGATION
-        document.addEventListener('click', function(e) {
+        // Buton tıklamaları
+        document.addEventListener('click', (e) => {
             if (e.target.classList.contains('sehir-btn')) {
-                e.preventDefault();
-                e.stopPropagation();
-                
                 const cityId = e.target.dataset.city;
-                const cityName = e.target.dataset.cityName;
+                const cityName = e.target.textContent;
                 
-                console.log('🖱️ Butona tıklandı:', cityName);
+                console.log(`\n=== ŞEHİR DEĞİŞİYOR: ${cityName} ===`);
                 
-                // Tüm butonlardan active class'ını kaldır
+                // Butonları güncelle
                 document.querySelectorAll('.sehir-btn').forEach(btn => {
                     btn.classList.remove('active');
                 });
-                
-                // Tıklanan butona active class'ını ekle
                 e.target.classList.add('active');
+                
+                // Header'ı güncelle
+                updateHeaderCity(cityName);
                 
                 // Mevcut şehri güncelle
                 currentCity = CITIES.find(c => c.id === cityId) || CITIES[0];
                 
-                // Header'daki şehir adını GÜNCELLE (YENİ SPAN OLUŞTURMA)
-                updateHeaderCity(cityName);
-                
                 // Dropdown'ı güncelle
                 updateDropdown(cityId);
                 
-                // Sayfa içeriğini güncelle
-                updatePageContent(cityId);
+                // Dosya linklerini güncelle
+                updateFileLinks(cityId);
+                
+                console.log(`✅ Şehir başarıyla değiştirildi: ${cityName}\n`);
             }
         });
         
-        // 2. DROPDOWN DEĞİŞİMİ
-        document.addEventListener('change', function(e) {
+        // Dropdown değişimi
+        document.addEventListener('change', (e) => {
             if (e.target.id === 'machine-dropdown' && e.target.value) {
-                console.log('🌐 Sayfa değiştiriliyor:', e.target.value);
+                const selectedUrl = e.target.value;
+                const selectedText = e.target.options[e.target.selectedIndex].text;
+                
+                console.log(`🌐 Sayfa değiştiriliyor:`);
+                console.log(`   Makina: ${selectedText}`);
+                console.log(`   URL: ${selectedUrl}`);
+                
+                // Kısa bir gecikmeyle sayfayı değiştir
                 setTimeout(() => {
-                    window.location.href = e.target.value;
-                }, 100);
+                    window.location.href = selectedUrl;
+                }, 300);
             }
         });
     }
     
-    // === 10. BAŞLATMA FONKSİYONU (DÜZELTİLDİ) ===
+    // === 11. TEST FONKSİYONU ===
+    function testSystem() {
+        console.log('\n=== SİSTEM TESTİ ===');
+        console.log('1. Butonlar:', document.querySelectorAll('.sehir-btn').length, 'adet');
+        console.log('2. Dropdown:', document.getElementById('machine-dropdown') ? 'VAR' : 'YOK');
+        
+        const dropdown = document.getElementById('machine-dropdown');
+        if (dropdown) {
+            console.log('3. Dropdown seçenekleri:', dropdown.options.length, 'adet');
+            console.log('4. İlk 3 seçenek:');
+            for (let i = 0; i < Math.min(3, dropdown.options.length); i++) {
+                console.log(`   ${i}. ${dropdown.options[i].text} -> ${dropdown.options[i].value}`);
+            }
+        }
+        
+        console.log('5. Orijinal dosya isimleri:', Object.keys(originalFileNames).length, 'adet');
+        console.log('6. Mevcut şehir:', currentCity.name);
+    }
+    
+    // === 12. BAŞLATMA ===
     function init() {
-        console.log('🚀 Şehir Sistemi Başlatılıyor...');
+        console.log('🚀 Şehir Sistemi Başlatılıyor...\n');
         
         try {
-            // 1. CSS enjekte et
+            // 1. CSS ekle
             injectCSS();
             
             // 2. Butonları oluştur
@@ -427,7 +453,7 @@
                 throw new Error('Butonlar oluşturulamadı');
             }
             
-            // 3. Header'a şehir adını ekle (TEK SPAN)
+            // 3. Header'a şehir adı ekle
             setupHeaderCity();
             
             // 4. Dropdown'ı oluştur
@@ -435,41 +461,41 @@
                 throw new Error('Dropdown oluşturulamadı');
             }
             
-            // 5. Event handler'ları kur
+            // 5. Orijinal dosya isimlerini kaydet
+            saveOriginalFileNames();
+            
+            // 6. Event handler'ları kur
             setupEventHandlers();
             
-            // 6. İlk yükleme
+            // 7. İlk dropdown'ı doldur
             updateDropdown(currentCity.id);
-            updatePageContent(currentCity.id);
             
-            console.log('✅ Şehir Sistemi Başarıyla Yüklendi!');
-            console.log('📌 Düzeltmeler:');
-            console.log('   • Header şehir adı TEK SPAN (6 tane yazma sorunu çözüldü)');
-            console.log('   • Mobilde butonlar YAN YANA (alt alta geçme sorunu çözüldü)');
-            console.log('   • Buton tıklamaları düzeltildi');
+            // 8. İlk dosya linklerini güncelle
+            updateFileLinks(currentCity.id);
             
-            // Test için
-            setTimeout(() => {
-                console.log('🧪 Test: Aktif şehir:', currentCity.name);
-                console.log('🧪 Test: City span mevcut:', !!citySpan);
-            }, 1000);
+            // 9. Test et
+            setTimeout(testSystem, 1500);
+            
+            console.log('\n✅ Şehir Sistemi Başarıyla Yüklendi!\n');
+            console.log('📌 ÖZELLİKLER:');
+            console.log('   • 4 şehir butonu (AKSARAY, BURSA, MANİSA, KOCAELİ)');
+            console.log('   • Header şehir adı BEYAZ');
+            console.log('   • Dropdown makineleri görünür');
+            console.log('   • Dosya linkleri doğru güncellenir');
             
         } catch (error) {
-            console.error('❌ Hata:', error);
-            // 2 saniye sonra tekrar dene
-            setTimeout(init, 2000);
+            console.error('❌ Başlatma hatası:', error);
         }
     }
     
-    // === 11. DOM HAZIR OLUNCA ÇALIŞTIR ===
+    // === 13. DOM HAZIR OLUNCA BAŞLAT ===
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
-        // DOM zaten hazırsa 100ms sonra başlat
-        setTimeout(init, 100);
+        init();
     }
     
-    // === 12. GLOBAL API ===
+    // === 14. DEBUG İÇİN GLOBAL ===
     window.SehirSistemi = {
         setSehir: (cityId) => {
             const button = document.querySelector(`.sehir-btn[data-city="${cityId}"]`);
@@ -477,20 +503,31 @@
                 button.click();
                 return true;
             }
+            console.error(`❌ Şehir butonu bulunamadı: ${cityId}`);
             return false;
         },
         
         getSehir: () => currentCity,
         
-        addMakina: (cityId, makinaAdi, makinaUrl) => {
-            if (!MACHINE_DATA[cityId]) MACHINE_DATA[cityId] = [];
-            MACHINE_DATA[cityId].push({ name: makinaAdi, url: makinaUrl });
-            
-            if (currentCity.id === cityId) {
-                updateDropdown(cityId);
+        getMakineler: (cityId) => {
+            return MACHINE_DATA[cityId] || [];
+        },
+        
+        // Debug için
+        debug: {
+            originalFileNames: () => originalFileNames,
+            testDropdown: () => {
+                const dropdown = document.getElementById('machine-dropdown');
+                if (dropdown) {
+                    console.log('Dropdown seçenekleri:');
+                    for (let i = 0; i < dropdown.options.length; i++) {
+                        console.log(`${i}. ${dropdown.options[i].text} -> ${dropdown.options[i].value}`);
+                    }
+                }
             }
-            return true;
         }
     };
+    
+    console.log('🔧 Şehir Sistemi yüklendi, DOM bekleniyor...');
     
 })();
