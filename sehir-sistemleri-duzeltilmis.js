@@ -143,7 +143,7 @@
                 
                 .sehir-butonlari-wrapper {
                 flex-wrap: nowrap;
-                overflow-x: auto;
+                gap: 3px;
                  
                 }
             }
