@@ -22,6 +22,7 @@
         ],
         bursa: [
             { name: "KUKA" , url: "bursa-kuka.html" }
+       ],
             
         manisa: [
             { name: "Kuka Robot" , url: "manisa-kuka.html" },
