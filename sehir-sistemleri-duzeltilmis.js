@@ -138,9 +138,11 @@
                     padding: 10px 15px;
                     min-width: 100px;
                     font-size: 14px;
+                    display: flex;
                 }
                 
                 .sehir-butonlari-wrapper {
+                flex-wrap: nowrap;
                     gap: 5px;
                 }
             }
