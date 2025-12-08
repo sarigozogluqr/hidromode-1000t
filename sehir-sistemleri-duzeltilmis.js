@@ -24,10 +24,9 @@
             { name: "KUKA", url: "bursa-kuka.html" }
             
         manisa: [
-            { name: "Ofis Otomasyon", url: "manisa-ofis.html" },
-            { name: "Yönetim Paneli", url: "manisa-panel.html" },
-            { name: "Raporlama Sistemi", url: "manisa-rapor.html" },
-            { name: "Güvenlik Yazılımları", url: "manisa-guvenlik.html" }
+            { name: "Kuka Robot", url: "manisa-kuka.html" },
+            { name: "Yönetim Paneli", url: "manisa-panel.html" }
+            
         ],
         kocaeli: [
             { name: "IoT Sistemleri", url: "kocaeli-iot.html" },
