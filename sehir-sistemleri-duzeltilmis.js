@@ -143,7 +143,8 @@
                 
                 .sehir-butonlari-wrapper {
                 flex-wrap: nowrap;
-                    gap: 5px;
+                overflow-x: auto;
+                 
                 }
             }
         `;
