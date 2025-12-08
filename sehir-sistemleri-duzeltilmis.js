@@ -135,15 +135,12 @@
             /* MOBİL */
             @media (max-width: 768px) {
                 .sehir-btn {
-                    padding: 10px 15px;
-                    min-width: 100px;
-                    font-size: 14px;
-                    display: flex;
+                   flex-shrink: 0; 
                 }
                 
                 .sehir-butonlari-wrapper {
-                flex-wrap: nowrap;
-                gap: 3px;
+               flex-wrap: nowrap;
+               overflow-x: auto;
                  
                 }
             }
