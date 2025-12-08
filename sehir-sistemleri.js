@@ -257,14 +257,14 @@
         `;
         
         header.insertAdjacentElement('afterend', container);
-        console.log('✅ Butonlar oluşturuldu');
+        console.log('Butonlar oluşturuldu');
         return true;
     }
     
     function setupHeaderCity() {
         const headerH1 = document.querySelector('.header h1');
         if (!headerH1) {
-            console.error('❌ Header h1 bulunamadı!');
+            console.error('Header h1 bulunamadı!');
             return;
         }
         
