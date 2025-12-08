@@ -21,11 +21,11 @@
             { name: "Gazaltı-1-2-3", url: "gazalti-1-2-3.html" }
         ],
         bursa: [
-            { name: "KUKA", url: "bursa-kuka.html" }
+            { name: "KUKA" , url: "bursa-kuka.html" }
             
         manisa: [
-            { name: "Kuka Robot", url: "manisa-kuka.html" },
-            { name: "Yönetim Paneli", url: "manisa-panel.html" }
+            { name: "Kuka Robot" , url: "manisa-kuka.html" },
+            { name: "Yönetim Paneli" , url: "manisa-panel.html" }
             
         ],
         kocaeli: [
