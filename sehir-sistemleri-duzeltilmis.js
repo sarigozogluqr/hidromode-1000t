@@ -21,11 +21,8 @@
             { name: "Gazaltı-1-2-3", url: "gazalti-1-2-3.html" }
         ],
         bursa: [
-            { name: "CNC Programları", url: "bursa-cnc.html" },
-            { name: "Kalite Kontrol", url: "bursa-kalite.html" },
-            { name: "Üretim Hattı", url: "bursa-uretim.html" },
-            { name: "Makina Bakım", url: "bursa-bakim.html" }
-        ],
+            { name: "KUKA", url: "bursa-kuka.html" }
+            
         manisa: [
             { name: "Ofis Otomasyon", url: "manisa-ofis.html" },
             { name: "Yönetim Paneli", url: "manisa-panel.html" },
