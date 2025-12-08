@@ -281,7 +281,7 @@
         console.log(`🔄 Dropdown güncelleniyor: ${cityId}`);
         
         // Önce temizle
-        select.innerHTML = '<option value="">Makina seçin...</option>';
+        select.innerHTML = '<option value="">(Seçim Yapın)</option>';
         
         // Seçenekleri ekle
         const machines = MACHINE_DATA[cityId];
@@ -311,7 +311,7 @@
         // Label'ı güncelle
         const city = CITIES.find(c => c.id === cityId);
         if (city) {
-            label.textContent = `${city.name} MAKİNA SEÇİN:`;
+            label.textContent = `${city.name} HEPSİNİ GÖRÜNTÜLE:`;
         }
     }
     
