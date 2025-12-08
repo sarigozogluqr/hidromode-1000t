@@ -45,21 +45,26 @@
             /* ŞEHİR BUTONLARI */
             .sehir-butonlari-container {
                 background: #f0f0f0;
-                padding: 10px 15px;
+                padding: 15px;
                 border-bottom: 2px solid #ddd;
                 overflow: hidden;
             }
             
             .sehir-butonlari-wrapper {
-                display: grid;
-                grid-template-colums: repeat(4, 1fr);
-                gap: 8px;
-                max-width: 600px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 15px;
+                max-width: 1200px;
                 margin: 0 auto;
+                flex-wrap: nowrap;
             }
             
             .sehir-btn {
-                padding: 10px 5px;
+                flex: 1;
+                min-width: 120px;
+                max-width: 200px;
+                padding: 15px 10px;
                 background: white;
                 border: 2px solid #230564;
                 border-radius: 8px;
@@ -68,15 +73,14 @@
                 cursor: pointer;
                 transition: all 0.3s;
                 text-align: center;
-                font-size: 14px;
+                font-size: 16px;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                height: 100%;
-                min-height: 44px;
+                height: 60px;
             }
             
             .sehir-btn:hover {
@@ -94,7 +98,7 @@
             .sehir-adi-header {
                 color: white;
                 font-weight: 600;
-                margin:0 auto;
+                margin: 0 auto;
                 padding: 5px 15px;
                 display: flex;
                 justify-content: center;
@@ -141,47 +145,102 @@
                 font-size: 15px;
             }
             
-            /* MOBİL */
-            @media (max-width: 768px) {
-                .sehir-btn {
-                padding: 8px 4px;
-                min-height:443px;
-                display: flex;
-                align-items: center;
-                justify-centent: center;
-                   }
-                
+            
+            /* TÜM EKRAN BOYUTLARI İÇİN */
+            /* Masaüstü (1200px ve üstü) */
+            @media (min-width: 1200px) {
                 .sehir-butonlari-wrapper {
-             grid-template-columns: repeat(4, 1fr);
-             gap: 6px;
-                 
+                    gap: 20px;
+                }
+                
+                .sehir-btn {
+                    font-size: 18px;
+                    height: 65px;
                 }
             }
- /* ÇOK KÜÇÜK EKRANLAR */
-@media (max-width: 480px) {
+            
+            /* Laptop (992px - 1199px) */
+            @media (min-width: 992px) and (max-width: 1199px) {
                 .sehir-butonlari-wrapper {
-                    gap: 4px;
+                    gap: 15px;
+                }
+                
+                .sehir-btn {
+                    font-size: 16px;
+                    height: 60px;
+                }
+            }
+            
+            /* Tablet (768px - 991px) */
+            @media (min-width: 768px) and (max-width: 991px) {
+                .sehir-butonlari-wrapper {
+                    gap: 12px;
+                }
+                
+                .sehir-btn {
+                    font-size: 15px;
+                    height: 55px;
+                    min-width: 100px;
+                }
+            }
+            
+            /* Mobil (480px - 767px) - HER ZAMAN YAN YANA */
+            @media (max-width: 767px) {
+                .sehir-butonlari-container {
+                    padding: 12px 10px;
+                }
+                
+                .sehir-butonlari-wrapper {
+                    gap: 8px;
+                    padding: 0 5px;
+                }
+                
+                .sehir-btn {
+                    font-size: 14px;
+                    height: 50px;
+                    min-width: 80px;
+                    padding: 10px 5px;
+                    flex: 1; /* Hala eşit genişlikte */
+                }
+            }
+            
+            /* Çok Küçük Mobil (479px ve altı) - YİNE YAN YANA */
+            @media (max-width: 479px) {
+                .sehir-butonlari-wrapper {
+                    gap: 5px;
                 }
                 
                 .sehir-btn {
                     font-size: 12px;
-                    padding: 6px 3px;
-                    min-height: 40px;
+                    height: 45px;
+                    min-width: 70px;
+                    padding: 8px 3px;
                 }
                 
                 .sehir-butonlari-container {
-                    padding: 8px 10px;
+                    padding: 10px 8px;
                 }
             }
- /* YATAY MOBİL */
-            @media (max-width: 768px) and (orientation: landscape) {
+            
+            /* YATAY MOD (Landscape) */
+            @media (max-height: 600px) and (orientation: landscape) {
+                .sehir-btn {
+                    height: 40px;
+                    font-size: 13px;
+                }
+            }
+            
+            /* ÇOK GENİŞ EKRANLAR */
+            @media (min-width: 1600px) {
                 .sehir-butonlari-wrapper {
-                    gap: 10px;
+                    max-width: 1400px;
+                    gap: 25px;
                 }
                 
                 .sehir-btn {
-                    padding: 10px 5px;
-                    font-size: 14px;
+                    max-width: 250px;
+                    font-size: 20px;
+                    height: 70px;
                 }
             }
             
