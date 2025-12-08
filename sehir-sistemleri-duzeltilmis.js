@@ -145,7 +145,7 @@
             @media (max-width: 768px) {
                 .sehir-btn {
                 padding: 8px 4px;
-                min-height: 13px;
+                min-height:443px;
                 display: flex;
                 align-items: center;
                 justify-centent: center;
@@ -153,7 +153,7 @@
                 
                 .sehir-butonlari-wrapper {
              grid-template-columns: repeat(4, 1fr);
-             gağ: 6px;
+             gap: 6px;
                  
                 }
             }
