@@ -348,7 +348,7 @@
         container.className = 'sehir-dropdown-container';
         container.innerHTML = `
             <div class="sehir-dropdown-wrapper">
-                <label class="sehir-dropdown-label" id="dropdown-label">${currentCity.name} HEPSİNİ GÖRÜNTÜLE:</label>
+                <label class="sehir-dropdown-label" id="dropdown-label">${currentCity.name} DOKÜMANLAR:</label>
                 <select class="sehir-dropdown-select" id="machine-dropdown">
                     <option value="">(Seçim Yapın)</option>
                 </select>
@@ -408,7 +408,7 @@
         // Label'ı güncelle
         const city = CITIES.find(c => c.id === cityId);
         if (city) {
-            label.textContent = `${city.name} HEPSİNİ GÖRÜNTÜLE:`;
+            label.textContent = `${city.name} DOKÜMANLAR:`;
         }
     }
     
