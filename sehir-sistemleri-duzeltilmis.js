@@ -45,19 +45,21 @@
             /* ŞEHİR BUTONLARI */
             .sehir-butonlari-container {
                 background: #f0f0f0;
-                padding: 15px;
+                padding: 10px 15px;
                 border-bottom: 2px solid #ddd;
+                overflow: hidden;
             }
             
             .sehir-butonlari-wrapper {
-                display: flex;
-                justify-content: center;
-                gap: 10px;
-                flex-wrap: wrap;
+                display: grid;
+                grid-template-colums: repeat(4, 1fr);
+                gap: 8px;
+                max-width: 600px;
+                margin: 0 auto;
             }
             
             .sehir-btn {
-                padding: 12px 25px;
+                padding: 10px 5px;
                 background: white;
                 border: 2px solid #230564;
                 border-radius: 8px;
@@ -65,7 +67,11 @@
                 font-weight: bold;
                 cursor: pointer;
                 transition: all 0.3s;
-                min-width: 120px;
+                text-align: center;
+                font-size: 14px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             
             .sehir-btn:hover {
@@ -133,17 +139,47 @@
             /* MOBİL */
             @media (max-width: 768px) {
                 .sehir-btn {
-                   flex: 0 0 auto;
-                   min-width: 90px;
-                }
+                padding: 8px 4px;
+                min-height: 13px;
+                display: flex;
+                align-items: center;
+                justify-centent: center;
+                   }
                 
                 .sehir-butonlari-wrapper {
-               flex-wrap: nowrap;
-               overflow-x: auto;
-              -webkit-overflow-scrolling: touch;
+             grid-template-columns: repeat(4, 1fr);
+             gağ: 6px;
                  
                 }
             }
+ /* ÇOK KÜÇÜK EKRANLAR */
+@media (max-width: 480px) {
+                .sehir-butonlari-wrapper {
+                    gap: 4px;
+                }
+                
+                .sehir-btn {
+                    font-size: 12px;
+                    padding: 6px 3px;
+                    min-height: 40px;
+                }
+                
+                .sehir-butonlari-container {
+                    padding: 8px 10px;
+                }
+            }
+ /* YATAY MOBİL */
+            @media (max-width: 768px) and (orientation: landscape) {
+                .sehir-butonlari-wrapper {
+                    gap: 10px;
+                }
+                
+                .sehir-btn {
+                    padding: 10px 5px;
+                    font-size: 14px;
+                }
+            }
+            
         `;
         
         const style = document.createElement('style');
