@@ -72,6 +72,11 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                min-height: 44px;
             }
             
             .sehir-btn:hover {
