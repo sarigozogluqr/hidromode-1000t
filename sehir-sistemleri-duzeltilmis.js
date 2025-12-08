@@ -30,11 +30,9 @@
             
         ],
         kocaeli: [
-            { name: "IoT Sistemleri", url: "kocaeli-iot.html" },
-            { name: "Akıllı Şehir", url: "kocaeli-akilli-sehir.html" },
-            { name: "AR-GE Projeleri", url: "kocaeli-arge.html" },
-            { name: "İnovasyon", url: "kocaeli-inovasyon.html" }
-        ]
+            { name: "KUKA Kocaeli", url: "kocaeli-kuka.html" },
+            ]
+            
     };
     
     let currentCity = CITIES[0];
@@ -141,6 +139,9 @@
                 .sehir-butonlari-wrapper {
                flex-wrap: nowrap;
                overflow-x: auto;
+               gap: 5px;
+               padding: 5px 0;
+              -webkit-overflow-scrolling: touch;
                  
                 }
             }
