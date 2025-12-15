@@ -32,7 +32,7 @@
     };
 
     function getStateFromURL() {
-        cconst urlParams = new URLSearchParams(window.location.search);
+        const urlParams = new URLSearchParams(window.location.search);
         const cityId = urlParams.get('city');
         const machineUrl = urlParams.get('machine');
 
@@ -533,7 +533,7 @@
             if (activeButton) {
                 document.querySelectorAll('.sehir-btn').forEach(btn => {
                     btn.classList.remove('active');
-                };
+                });
                 activeButton.classList.add('active');
                 updateHeaderCity(activeButton.textContent);
             }
