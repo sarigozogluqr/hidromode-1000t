@@ -470,7 +470,7 @@
         } else {
             targetUrl = `${pageUrl}?${params.toString()}`;
         }
-        console.log(`Yönlendiriliyor: ${url.toString()}`);
+        console.log(`Yönlendiriliyor: ${targetUrl}`);
         window.location.href = targetUrl;
     }
     
