@@ -452,14 +452,12 @@
     }
    
         function navigateToPage(pageUrl, cityId, machineUrl) {
-    // DEBUG: Mevcut durumu kontrol et
     console.log('=== DEBUG ===');
     console.log('Mevcut sayfa:', window.location.href);
     console.log('Hedef sayfa:', pageUrl);
     console.log('Şehir:', cityId);
     console.log('Makine:', machineUrl);
     
-    // Query parametrelerini oluştur
     const params = new URLSearchParams();
     
     if (cityId) {
@@ -470,18 +468,14 @@
         params.set('machine', machineUrl);
     }
     
-    // Cache önleme
     params.set('_t', Date.now());
-    
-    // Hedef URL'yi oluştur
+
     let targetUrl;
     
-    // Eğer pageUrl zaten query parametresi içeriyorsa
     if (pageUrl.includes('?')) {
         const [base, existingParams] = pageUrl.split('?');
         const allParams = new URLSearchParams(existingParams);
         
-        // Yeni parametreleri ekle
         params.forEach((value, key) => {
             allParams.set(key, value);
         });
@@ -494,7 +488,6 @@
     console.log('Oluşturulan URL:', targetUrl);
     console.log('=== DEBUG SONU ===');
     
-    // Yönlendir
     window.location.href = targetUrl;
 
 }
