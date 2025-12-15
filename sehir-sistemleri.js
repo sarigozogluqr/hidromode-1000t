@@ -41,7 +41,7 @@
             machineUrl: machineUrl || ''
         };
     }
-    function updateUrlState(cityId, machineUrl ='') {
+    function updateURLState(cityId, machineUrl ='') {
         const url = new URL(window.location);
         url.searchParams.set('city', cityId);
         if (machineUrl) {
@@ -49,7 +49,7 @@
         } else {
             url.searchParams.delete('machine');
         }
-        console.log('Yönlendiriliyor: ${url.toString()}');
+        console.log(`Yönlendiriliyor: ${url.toString()}`);
         window.location.href = url.toString();
     }
     
@@ -279,7 +279,7 @@
         `;
         
         header.insertAdjacentElement('afterend', container);
-        console.log('Butonlar oluşturuldu');
+        console.log(`Butonlar oluşturuldu`);
         return true;
     }
     
@@ -447,6 +447,15 @@
         
         console.log('Dosya linkleri güncellendi');
     }
+    function navigateToPage(pageUrl, cityId, machineUrl) {
+        const url = new URL(pageUrl, window.location.origin);
+        url.searchParams.set('city', cityId);
+        if (machineUrl) {
+            url.searchParams.set('machine', machineUrl);
+        }
+        console.log('Yönlendiriliyor: ${url.toString()}');
+        window.location.href = url.toStrig();
+    }
     
     function setupEventHandlers() {
         document.addEventListener('click', (e) => {
@@ -539,11 +548,13 @@
             }
             updateDropdown(currentCity.id);
             if (machineUrl) {
+                currentMachine = machineUrl;
+                setTimeout(() => {
                 const dropdown = document.getElementById('machine-dropdown');
                 if (dropdown) {
                     dropdown.value = machineUrl;
-                    currentMachine = machineUrl;
                 }
+                },200);
             }
 
             
