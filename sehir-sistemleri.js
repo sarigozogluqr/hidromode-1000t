@@ -450,25 +450,54 @@
         
         console.log('Dosya linkleri güncellendi');
     }
-    function navigateToPage(pageUrl, cityId, machineUrl) {
-        const params = new URLSearchParams();
-        
-        if (cityId) {
-            params.set('city', cityId);
-        }
+   
+        function navigateToPage(pageUrl, cityId, machineUrl) {
+    // DEBUG: Mevcut durumu kontrol et
+    console.log('=== DEBUG ===');
+    console.log('Mevcut sayfa:', window.location.href);
+    console.log('Hedef sayfa:', pageUrl);
+    console.log('Şehir:', cityId);
+    console.log('Makine:', machineUrl);
     
-        if (machineUrl) {
-            params.set('machine', machineUrl);
-        }
-
-
-params.set('_t', Date.now());
-
-        const targetUrl = `${pageUrl}?${params.toString()}`;
-        
-        console.log('Yönlendiriliyor:', targetUrl);
-        window.location.href = targetUrl;
+    // Query parametrelerini oluştur
+    const params = new URLSearchParams();
+    
+    if (cityId) {
+        params.set('city', cityId);
     }
+    
+    if (machineUrl) {
+        params.set('machine', machineUrl);
+    }
+    
+    // Cache önleme
+    params.set('_t', Date.now());
+    
+    // Hedef URL'yi oluştur
+    let targetUrl;
+    
+    // Eğer pageUrl zaten query parametresi içeriyorsa
+    if (pageUrl.includes('?')) {
+        const [base, existingParams] = pageUrl.split('?');
+        const allParams = new URLSearchParams(existingParams);
+        
+        // Yeni parametreleri ekle
+        params.forEach((value, key) => {
+            allParams.set(key, value);
+        });
+        
+        targetUrl = `${base}?${allParams.toString()}`;
+    } else {
+        targetUrl = `${pageUrl}?${params.toString()}`;
+    }
+    
+    console.log('Oluşturulan URL:', targetUrl);
+    console.log('=== DEBUG SONU ===');
+    
+    // Yönlendir
+    window.location.href = targetUrl;
+
+}
     
     function setupEventHandlers() {
         document.addEventListener('click', (e) => {
