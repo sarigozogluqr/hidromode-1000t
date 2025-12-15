@@ -24,15 +24,37 @@
             { name: "KUKA" , url: "bursa-kuka.html" }
        ],  
         manisa: [
-            { name: "Kuka Robot" , url: "manisa-kuka.html" },
-            { name: "Yönetim Paneli" , url: "manisa-panel.html" }   
+            { name: "Kuka Robot" , url: "manisa-kuka.html" } 
         ],
         kocaeli: [
             { name: "KUKA Kocaeli", url: "kocaeli-kuka.html" },
         ]    
     };
+
+    function getStateFromURL() {
+        cconst urlParams = new URLSearchParams(window.location.search);
+        const cityId = urlParams.get('city');
+        const machineUrl = urlParams.get('machine');
+
+        return {
+            cityId: cityId || 'aksaray',
+            machineUrl: machineUrl || ''
+        };
+    }
+    function updateUrlState(cityId, machineUrl ='') {
+        const url = new URL(window.location);
+        url.searchParams.set('city', cityId);
+        if (machineUrl) {
+            url.searchParams.set('machine', machineUrl);
+        } else {
+            url.searchParams.delete('machine');
+        }
+        console.log('Yönlendiriliyor: ${url.toString()}');
+        window.location.href = url.toString();
+    }
     
     let currentCity = CITIES[0];
+    let currentMachine = '';
     let originalFileNames = {}; 
   
     function injectCSS() {
@@ -440,12 +462,11 @@
                 e.target.classList.add('active');
                 
                 updateHeaderCity(cityName);
-                
                 currentCity = CITIES.find(c => c.id === cityId) || CITIES[0];
-                
                 updateDropdown(cityId);
-                
                 updateFileLinks(cityId);
+
+                updateURLState(cityId, currentMachine);
                 
                 console.log(`Şehir başarıyla değiştirildi: ${cityName}\n`);
             }
@@ -455,14 +476,17 @@
             if (e.target.id === 'machine-dropdown' && e.target.value) {
                 const selectedUrl = e.target.value;
                 const selectedText = e.target.options[e.target.selectedIndex].text;
+
+                currentMachine = selectedUrl;
                 
                 console.log(`Sayfa değiştiriliyor:`);
                 console.log(` Makina: ${selectedText}`);
                 console.log(` URL: ${selectedUrl}`);
+
+                console.log(' Şehir: ${currentCity.id}');
+                navigateToPage(selectedUrl, currentCity.id, selectedUrl);
                 
-                setTimeout(() => {
-                    window.location.href = selectedUrl;
-                }, 300);
+                
             }
         });
     }
@@ -487,6 +511,8 @@
     
     function init() {
         console.log('Şehir Sistemi Başlatılıyor...\n');
+
+        const { cityId: urlCityId, machineUrl } = getStateFromURL();
         
         try {
             injectCSS();
@@ -502,19 +528,34 @@
             saveOriginalFileNames();
             
             setupEventHandlers();
-            
+
+            const activeButton = document.querySelector('.sehir-btn[data-city="${urlCityId}"]');
+            if (activeButton) {
+                document.querySelectorAll('.sehir-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                };
+                activeButton.classList.add('active');
+                updateHeaderCity(activeButton.textContent);
+            }
             updateDropdown(currentCity.id);
+            if (machineUrl) {
+                const dropdown = document.getElementById('machine-dropdown');
+                if (dropdown) {
+                    dropdown.value = machineUrl;
+                    currentMachine = machineUrl;
+                }
+            }
+
             
             updateFileLinks(currentCity.id);
+
+            updateURLState(currentCity.id, currentMachine);
             
             setTimeout(testSystem, 1500);
             
             console.log('\nŞehir Sistemi Başarıyla Yüklendi!\n');
-            console.log('ÖZELLİKLER:');
-            console.log('   • 4 şehir butonu (AKSARAY, BURSA, MANİSA, KOCAELİ)');
-            console.log('   • Header şehir adı BEYAZ');
-            console.log('   • Dropdown makineleri görünür');
-            console.log('   • Dosya linkleri doğru güncellenir');
+            console.log('Başlangıç Şehri: ${currentCity.name} ');
+        
             
         } catch (error) {
             console.error('Başlatma hatası:', error);
