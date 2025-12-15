@@ -50,7 +50,7 @@
             url.searchParams.delete('machine');
         }
         console.log(`Yönlendiriliyor: ${url.toString()}`);
-        window.location.href = url.toString();
+        window.history.replaceState({}, '',url.toString());
     }
     
     let currentCity = CITIES[0];
@@ -453,8 +453,8 @@
         if (machineUrl) {
             url.searchParams.set('machine', machineUrl);
         }
-        console.log('Yönlendiriliyor: ${url.toString()}');
-        window.location.href = url.toStrig();
+        console.log(`Yönlendiriliyor: ${url.toString()}`);
+        window.location.href = url.toString();
     }
     
     function setupEventHandlers() {
@@ -492,7 +492,7 @@
                 console.log(` Makina: ${selectedText}`);
                 console.log(` URL: ${selectedUrl}`);
 
-                console.log(' Şehir: ${currentCity.id}');
+                console.log(` Şehir: ${currentCity.id}`);
                 navigateToPage(selectedUrl, currentCity.id, selectedUrl);
                 
                 
@@ -538,7 +538,7 @@
             
             setupEventHandlers();
 
-            const activeButton = document.querySelector('.sehir-btn[data-city="${urlCityId}"]');
+            const activeButton = document.querySelector(`.sehir-btn[data-city="${urlCityId}"]`);
             if (activeButton) {
                 document.querySelectorAll('.sehir-btn').forEach(btn => {
                     btn.classList.remove('active');
@@ -560,12 +560,11 @@
             
             updateFileLinks(currentCity.id);
 
-            updateURLState(currentCity.id, currentMachine);
             
             setTimeout(testSystem, 1500);
             
             console.log('\nŞehir Sistemi Başarıyla Yüklendi!\n');
-            console.log('Başlangıç Şehri: ${currentCity.name} ');
+            console.log(`Başlangıç Şehri: ${currentCity.name} `);
         
             
         } catch (error) {
