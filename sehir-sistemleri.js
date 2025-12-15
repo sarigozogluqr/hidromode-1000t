@@ -471,7 +471,7 @@
             targetUrl = `${pageUrl}?${params.toString()}`;
         }
         console.log(`Yönlendiriliyor: ${url.toString()}`);
-        window.location.href = url.targetUrl;
+        window.location.href = targetUrl;
     }
     
     function setupEventHandlers() {
@@ -550,12 +550,12 @@
             
             injectCSS();
             if (!createButtons()) {
-                throw new Error('Butonlar oluşturulamadı');
+                console.warn('Butonlar oluşturulamadı');
             }
             setupHeaderCity();
             
             if (!createDropdown()) {
-                throw new Error('Dropdown oluşturulamadı');
+                console.warn('Dropdown oluşturulamadı');
             }
             
             saveOriginalFileNames();
