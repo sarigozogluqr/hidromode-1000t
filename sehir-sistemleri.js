@@ -451,13 +451,26 @@
         console.log('Dosya linkleri güncellendi');
     }
     function navigateToPage(pageUrl, cityId, machineUrl) {
-        const url = new URL(pageUrl, window.location.origin);
-        url.searchParams.set('city', cityId);
+        let targetUrl;
+        const hasExistingParams = pageUrl.includes('?');
+        const params = new URLSearchParams();
+        params.set('city', cityId);
+    
         if (machineUrl) {
-            url.searchParams.set('machine', machineUrl);
+            params.set('machine', machineUrl);
         }
+        if (hasExistingParams) {
+            const [base, existingParams] = pageUrl.split('?');
+            const existingParamsObj = new URLSearchParams(existingParams);
+
+            params.forEach((value, key) => {
+                existingParamsObj.set(key, value);
+            });
+            targetUrl = `${base}?${existingParamsObj.toString()}`;
+        } else {
+            targetUrl = `${pageUrl}?${params.toString()}`;
         console.log(`Yönlendiriliyor: ${url.toString()}`);
-        window.location.href = url.toString();
+        window.location.href = url.targetUrl;
     }
     
     function setupEventHandlers() {
