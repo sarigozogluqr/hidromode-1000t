@@ -266,20 +266,23 @@
         
         const oldContainer = document.querySelector('.sehir-butonlari-container');
         if (oldContainer) oldContainer.remove();
+
+        const { cityId: urlCityId } = getSateFromURL();
+        const activeCityId = urlCityId || 'aksaray';
         
         const container = document.createElement('div');
         container.className = 'sehir-butonlari-container';
         container.innerHTML = `
             <div class="sehir-butonlari-wrapper">
-                <button class="sehir-btn active" data-city="aksaray">AKSARAY</button>
-                <button class="sehir-btn" data-city="bursa">BURSA</button>
-                <button class="sehir-btn" data-city="manisa">MANİSA</button>
-                <button class="sehir-btn" data-city="kocaeli">KOCAELİ</button>
+                <button class="sehir-btn ${activeCityId === 'aksaray' ? 'active' : ''}" data-city="aksaray">AKSARAY</button>
+                <button class="sehir-btn ${activeCityId === 'bursa' ? 'active' : ''}" data-city="bursa">BURSA</button>
+                <button class="sehir-btn ${activeCityId === 'manisa' ? 'active' : ''}" data-city="manisa">MANİSA</button>
+                <button class="sehir-btn ${activeCityId === 'kocaeli' ? 'active' : ''}" data-city="kocaeli">KOCAELİ</button>
             </div>
         `;
         
         header.insertAdjacentElement('afterend', container);
-        console.log(`Butonlar oluşturuldu`);
+        console.log(`Butonlar oluşturuldu, aktif şehir: ${activeCityId}`);
         return true;
     }
     
@@ -524,6 +527,13 @@
         const { cityId: urlCityId, machineUrl } = getStateFromURL();
         
         try {
+            const initialCity = CITIES.find(c => c.id === urlCityId) || CITIES[0];
+            currentCity = initialCity;
+            currentMachine = machineUrl || '';
+
+            console.log(`URL'den alınan: Şehir=${urlCityId}, Makine=${machineUrl || 'yok'}`);
+            console.log(`Başlangıç şehri: ${currentCity.name}`);
+            
             injectCSS();
             if (!createButtons()) {
                 throw new Error('Butonlar oluşturulamadı');
@@ -540,12 +550,10 @@
 
             const activeButton = document.querySelector(`.sehir-btn[data-city="${urlCityId}"]`);
             if (activeButton) {
-                document.querySelectorAll('.sehir-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                activeButton.classList.add('active');
+                console.log(`Aktif buton bulundu: ${urlCityId}`);
                 updateHeaderCity(activeButton.textContent);
-            }
+                }
+              
             updateDropdown(currentCity.id);
             if (machineUrl) {
                 currentMachine = machineUrl;
@@ -553,6 +561,7 @@
                 const dropdown = document.getElementById('machine-dropdown');
                 if (dropdown) {
                     dropdown.value = machineUrl;
+                    console.log(`Dropdown makine ayarlandı: ${machineUrl}`);
                 }
                 },200);
             }
