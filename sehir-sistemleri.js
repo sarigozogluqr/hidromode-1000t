@@ -267,7 +267,7 @@
         const oldContainer = document.querySelector('.sehir-butonlari-container');
         if (oldContainer) oldContainer.remove();
 
-        const { cityId: urlCityId } = getSateFromURL();
+        const { cityId: urlCityId } = getStateFromURL();
         const activeCityId = urlCityId || 'aksaray';
         
         const container = document.createElement('div');
@@ -469,6 +469,7 @@
             targetUrl = `${base}?${existingParamsObj.toString()}`;
         } else {
             targetUrl = `${pageUrl}?${params.toString()}`;
+        }
         console.log(`Yönlendiriliyor: ${url.toString()}`);
         window.location.href = url.targetUrl;
     }
