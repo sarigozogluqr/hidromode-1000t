@@ -18,7 +18,7 @@
             { name: "6000T Pres", url: "6000t-pres.html" },
             { name: "SMG Pres", url: "smg-pres.html" },
             { name: "Stenhoj", url: "stenhoj.html" },
-            { name: "Gazaltı-1-2-3", url: "gazalti-1-2-3.html" }
+            { name: "Gazaltı 1-2-3", url: "gazalti-1-2-3.html" }
         ],
         bursa: [
             { name: "KUKA" , url: "bursa-kuka.html" }
