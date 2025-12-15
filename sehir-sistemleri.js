@@ -459,6 +459,10 @@
         if (machineUrl) {
             params.set('machine', machineUrl);
         }
+
+
+targetUrl = `${pageUrl}?${params.toStirng()}`;
+        
         if (hasExistingParams) {
             const [base, existingParams] = pageUrl.split('?');
             const existingParamsObj = new URLSearchParams(existingParams);
