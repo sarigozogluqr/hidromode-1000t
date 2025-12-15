@@ -451,30 +451,22 @@
         console.log('Dosya linkleri güncellendi');
     }
     function navigateToPage(pageUrl, cityId, machineUrl) {
-        let targetUrl;
-        const hasExistingParams = pageUrl.includes('?');
         const params = new URLSearchParams();
-        params.set('city', cityId);
+        
+        if (cityId) {
+            params.set('city', cityId);
+        }
     
         if (machineUrl) {
             params.set('machine', machineUrl);
         }
 
 
-targetUrl = `${pageUrl}?${params.toStirng()}`;
-        
-        if (hasExistingParams) {
-            const [base, existingParams] = pageUrl.split('?');
-            const existingParamsObj = new URLSearchParams(existingParams);
+params.set('_t', Date.now());
 
-            params.forEach((value, key) => {
-                existingParamsObj.set(key, value);
-            });
-            targetUrl = `${base}?${existingParamsObj.toString()}`;
-        } else {
-            targetUrl = `${pageUrl}?${params.toString()}`;
-        }
-        console.log(`Yönlendiriliyor: ${targetUrl}`);
+        const targetUrl = `${pageUrl}?${params.toString()}`;
+        
+        console.log('Yönlendiriliyor:', targetUrl);
         window.location.href = targetUrl;
     }
     
